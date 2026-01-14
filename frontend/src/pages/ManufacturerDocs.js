@@ -1016,13 +1016,23 @@ Thank you for helping bring HibiscusPlus to life!
                     <CardTitle className="text-2xl">Tea People</CardTitle>
                     <CardDescription>Biodegradable bags, custom packaging, fulfillment options</CardDescription>
                   </div>
-                  <Button
-                    onClick={() => copyToClipboard(emailTeaPeople, 'Email template')}
-                    className="bg-rose-600 hover:bg-rose-700"
-                  >
-                    <Copy className="mr-2 h-4 w-4" />
-                    Copy Email
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadAsFile(emailTeaPeople, 'HibiscusPlus_Email_Tea_People.txt')}
+                      variant="outline"
+                      className="border-rose-300 text-rose-600 hover:bg-rose-50"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </Button>
+                    <Button
+                      onClick={() => copyToClipboard(emailTeaPeople, 'Email template')}
+                      className="bg-rose-600 hover:bg-rose-700"
+                    >
+                      <Copy className="mr-2 h-4 w-4" />
+                      Copy
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
