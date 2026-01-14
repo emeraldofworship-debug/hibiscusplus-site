@@ -123,7 +123,7 @@ const LaunchChecklist = () => {
       },
       {
         id: 19,
-        task: 'Request samples from Baldwin\\'s',
+        task: 'Request samples from Baldwin\'s',
         completed: false,
         priority: 'high',
         email: 'sales@baldwins.co.uk',
