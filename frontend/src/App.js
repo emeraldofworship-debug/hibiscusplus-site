@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import LaunchChecklist from './pages/LaunchChecklist';
 import BrandAssets from './pages/BrandAssets';
+import Suppliers from './pages/Suppliers';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/checklist" element={<LaunchChecklist />} />
           <Route path="/brand-assets" element={<BrandAssets />} />
+          <Route path="/suppliers" element={<Suppliers />} />
         </Routes>
       </BrowserRouter>
     </div>
