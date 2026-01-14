@@ -123,7 +123,7 @@ const Home = () => {
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-rose-600" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                Hibiscus Wellness
+                Hibiscus & Beyond
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-6">
@@ -493,9 +493,9 @@ const Home = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="h-6 w-6 text-rose-400" />
-                <h3 className="text-xl font-bold">Hibiscus Wellness</h3>
+                <h3 className="text-xl font-bold">Hibiscus & Beyond</h3>
               </div>
-              <p className="text-gray-400">Natural healing through the power of hibiscus</p>
+              <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
@@ -518,14 +518,15 @@ const Home = () => {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>Email: hello@hibiscuswellness.com</li>
-                <li>Phone: (555) 123-4567</li>
+                <li>Email: hello@hibiscusandbeyond.co.uk</li>
+                <li>Phone: +44 161 123 4567</li>
+                <li>Manchester Monthly Stalls</li>
                 <li>Hours: Mon-Fri 9am-5pm</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Hibiscus Wellness. All rights reserved.</p>
+            <p>&copy; 2025 Hibiscus & Beyond. All rights reserved.</p>
           </div>
         </div>
       </footer>
