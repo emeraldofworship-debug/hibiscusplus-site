@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import LaunchChecklist from './pages/LaunchChecklist';
 import BrandAssets from './pages/BrandAssets';
 import Suppliers from './pages/Suppliers';
+import EmailTemplates from './pages/EmailTemplates';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/checklist" element={<LaunchChecklist />} />
           <Route path="/brand-assets" element={<BrandAssets />} />
           <Route path="/suppliers" element={<Suppliers />} />
+          <Route path="/email-templates" element={<EmailTemplates />} />
         </Routes>
       </BrowserRouter>
     </div>
