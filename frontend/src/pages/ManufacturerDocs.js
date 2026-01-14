@@ -975,13 +975,23 @@ Thank you for helping bring HibiscusPlus to life!
                     <CardTitle className="text-2xl">UK Loose Leaf Tea Company</CardTitle>
                     <CardDescription>Recommended first contact - explicit dropshipping service</CardDescription>
                   </div>
-                  <Button
-                    onClick={() => copyToClipboard(emailUKLooseLeaf, 'Email template')}
-                    className="bg-rose-600 hover:bg-rose-700"
-                  >
-                    <Copy className="mr-2 h-4 w-4" />
-                    Copy Email
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadAsFile(emailUKLooseLeaf, 'HibiscusPlus_Email_UK_Loose_Leaf_Tea.txt')}
+                      variant="outline"
+                      className="border-rose-300 text-rose-600 hover:bg-rose-50"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </Button>
+                    <Button
+                      onClick={() => copyToClipboard(emailUKLooseLeaf, 'Email template')}
+                      className="bg-rose-600 hover:bg-rose-700"
+                    >
+                      <Copy className="mr-2 h-4 w-4" />
+                      Copy
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
