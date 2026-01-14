@@ -29,6 +29,66 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const hibiscusBenefits = [
+    {
+      title: 'Rich in Antioxidants',
+      description: 'Hibiscus is loaded with powerful antioxidants that may help prevent damage caused by free radicals.',
+      icon: 'shield'
+    },
+    {
+      title: 'Supports Heart Health',
+      description: 'Studies suggest hibiscus tea may help lower blood pressure and support cardiovascular wellness.',
+      icon: 'heart'
+    },
+    {
+      title: 'Natural Vitamin C',
+      description: 'High in vitamin C, hibiscus strengthens the immune system and promotes healthy skin.',
+      icon: 'sparkles'
+    },
+    {
+      title: 'Digestive Support',
+      description: 'The natural compounds in hibiscus can aid digestion and support a healthy gut.',
+      icon: 'leaf'
+    },
+    {
+      title: 'Weight Management',
+      description: 'May help with metabolism and support healthy weight management when combined with a balanced diet.',
+      icon: 'activity'
+    },
+    {
+      title: 'Anti-inflammatory',
+      description: 'Contains compounds with anti-inflammatory properties that support overall wellness.',
+      icon: 'zap'
+    }
+  ];
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [recipesRes, productsRes, blogRes] = await Promise.all([
+          axios.get(`${API}/recipes`),
+          axios.get(`${API}/products`),
+          axios.get(`${API}/blog`)
+        ]);
+        
+        setRecipes(recipesRes.data.data || []);
+        setProducts(productsRes.data.data || []);
+        setBlogPosts(blogRes.data.data || []);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load data. Please try again later.');
+        toast.error('Failed to load data');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const saved = localStorage.getItem('savedRecipes');
     if (saved) {
