@@ -51,6 +51,15 @@ const Suppliers = () => {
         website: 'https://www.boheateas.co.uk',
         location: 'Manchester, UK',
         specialties: ['Local Partnership', 'Herbal Infusions', 'Quick Turnaround', 'Wholesale']
+      },
+      {
+        name: 'The UK Loose Leaf Tea Company',
+        category: 'Blending, Bagging & Dropshipping',
+        description: 'EXPLICIT DROPSHIPPING SERVICE - Handles blending, bagging, boxing, and direct shipping to customers. Perfect for e-commerce.',
+        email: 'Contact via website',
+        website: 'https://theuklooseleafteacompany.co.uk',
+        location: 'UK',
+        specialties: ['✓ Dropshipping', 'Custom Recipes', 'Bagging (2-7g)', 'Boxing', 'Organic/Non-Organic']
       }
     ],
     accessories: [
