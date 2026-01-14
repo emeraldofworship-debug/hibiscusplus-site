@@ -37,11 +37,11 @@ const Suppliers = () => {
       {
         name: 'Supplement Factory UK',
         category: 'Co-Packer / Contract Manufacturing',
-        description: 'Private label herbal teas and custom wellness tea blends production.',
+        description: 'Private label herbal teas and custom wellness tea blends production. DROPSHIPPING AVAILABLE - handles production, packaging, and fulfillment.',
         phone: '0330 311 2761',
         website: 'https://supplementfactoryuk.com',
         location: 'Ashford, Kent',
-        specialties: ['Contract Manufacturing', 'Private Label', 'Custom Blends', 'Quality Control']
+        specialties: ['Contract Manufacturing', 'Private Label', 'Custom Blends', 'Quality Control', '✓ Dropshipping/Fulfillment']
       },
       {
         name: 'Bohea Teas',
