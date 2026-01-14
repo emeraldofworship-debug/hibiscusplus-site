@@ -945,9 +945,19 @@ Thank you for helping bring HibiscusPlus to life!
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
               Manufacturer Documents
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
               Professional emails, recipe specifications, and packaging brief - ready to send to manufacturers
             </p>
+            
+            {/* Download All Button */}
+            <Button 
+              onClick={downloadAllDocs}
+              size="lg"
+              className="bg-rose-600 hover:bg-rose-700 text-white"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download All Documents (4 Files)
+            </Button>
           </div>
 
           {/* Email Templates */}
