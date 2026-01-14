@@ -170,6 +170,42 @@ const Suppliers = () => {
               <Leaf className="h-6 w-6 text-rose-600" />
               Herbs & Hibiscus Suppliers
             </h3>
+            
+            {/* Dropshipping Info Card */}
+            <Card className="mb-6 border-green-300 bg-gradient-to-r from-green-50 to-emerald-50">
+              <CardHeader>
+                <CardTitle className="text-xl flex items-center gap-2">
+                  <CheckCircle2 className="h-6 w-6 text-green-600" />
+                  ✓ Dropshipping Available!
+                </CardTitle>
+                <CardDescription className="text-base">
+                  Save time and costs - these suppliers can manufacture AND ship directly to your customers
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold text-green-800 mb-2">Benefits:</h4>
+                    <ul className="text-sm space-y-1 text-gray-700">
+                      <li>• No inventory storage needed</li>
+                      <li>• Lower upfront costs</li>
+                      <li>• Manufacturer ships directly to customers</li>
+                      <li>• Scale easily without warehouse</li>
+                      <li>• Focus on marketing & sales</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-green-800 mb-2">Suppliers with Dropshipping:</h4>
+                    <ul className="text-sm space-y-1 text-gray-700">
+                      <li>✓ <strong>Supplement Factory UK</strong> - Full fulfillment</li>
+                      <li>✓ <strong>The UK Loose Leaf Tea Co.</strong> - Explicit dropship service</li>
+                      <li>• Ask other suppliers about fulfillment options</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {suppliers.herbs.map((supplier, index) => (
                 <Card key={index} className="border-rose-200 hover:shadow-xl transition-all">
