@@ -459,6 +459,80 @@ const LaunchChecklist = () => {
             </div>
           </div>
 
+          {/* Product Sourcing Section */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold flex items-center gap-2">
+                <svg className="h-6 w-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                Product Sourcing
+              </h3>
+              <a href="/suppliers" target="_blank">
+                <Button variant="outline" className="border-rose-300 text-rose-600 hover:bg-rose-50">
+                  View Full Supplier Directory
+                </Button>
+              </a>
+            </div>
+            <div className="space-y-4">
+              {checklist.sourcing.map(task => (
+                <Card key={task.id} className={`border-l-4 ${task.completed ? 'border-l-green-500' : 'border-l-orange-500'} hover:shadow-lg transition-all`}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-3 flex-1">
+                        <button 
+                          onClick={() => toggleTask('sourcing', task.id)}
+                          className="mt-1"
+                        >
+                          {task.completed ? 
+                            <CheckCircle2 className="h-6 w-6 text-green-600" /> : 
+                            <Circle className="h-6 w-6 text-gray-400" />
+                          }
+                        </button>
+                        <div className="flex-1">
+                          <CardTitle className={`text-lg ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                            {task.task}
+                          </CardTitle>
+                          <CardDescription className="mt-2">{task.description}</CardDescription>
+                          
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {task.link && (
+                              <a href={task.link} target="_blank" rel="noopener noreferrer">
+                                <Button size="sm" variant="outline" className="border-rose-300 text-rose-600 hover:bg-rose-50">
+                                  <ExternalLink className="mr-2 h-3 w-3" />
+                                  Visit Website
+                                </Button>
+                              </a>
+                            )}
+                            {task.email && (
+                              <a href={`mailto:${task.email}`}>
+                                <Button size="sm" variant="outline" className="border-blue-300 text-blue-600 hover:bg-blue-50">
+                                  <Mail className="mr-2 h-3 w-3" />
+                                  {task.email}
+                                </Button>
+                              </a>
+                            )}
+                            {task.phone && (
+                              <a href={`tel:${task.phone}`}>
+                                <Button size="sm" variant="outline" className="border-green-300 text-green-600 hover:bg-green-50">
+                                  <Phone className="mr-2 h-3 w-3" />
+                                  {task.phone}
+                                </Button>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <Badge className={getPriorityColor(task.priority)}>
+                        {task.priority}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
+
           {/* Website Section */}
           <div className="mb-8">
             <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
