@@ -1113,13 +1113,23 @@ Thank you for helping bring HibiscusPlus to life!
                     <CardTitle className="text-2xl">Complete Packaging Specifications</CardTitle>
                     <CardDescription>Box design, branding, labeling requirements, sustainability standards</CardDescription>
                   </div>
-                  <Button
-                    onClick={() => copyToClipboard(packagingBrief, 'Packaging brief')}
-                    className="bg-rose-600 hover:bg-rose-700"
-                  >
-                    <Copy className="mr-2 h-4 w-4" />
-                    Copy All
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadAsFile(packagingBrief, 'HibiscusPlus_Packaging_Brief.txt')}
+                      variant="outline"
+                      className="border-rose-300 text-rose-600 hover:bg-rose-50"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </Button>
+                    <Button
+                      onClick={() => copyToClipboard(packagingBrief, 'Packaging brief')}
+                      className="bg-rose-600 hover:bg-rose-700"
+                    >
+                      <Copy className="mr-2 h-4 w-4" />
+                      Copy
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
