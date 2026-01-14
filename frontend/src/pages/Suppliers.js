@@ -383,7 +383,7 @@ const Suppliers = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <h4 className="font-semibold mb-2 text-rose-700">Before Contacting:</h4>
                   <ul className="space-y-1 text-sm text-gray-700">
@@ -402,6 +402,15 @@ const Suppliers = () => {
                     <li>• Build long-term relationships</li>
                   </ul>
                 </div>
+              </div>
+              
+              <div className="flex justify-center">
+                <a href="/email-templates">
+                  <Button className="bg-rose-600 hover:bg-rose-700">
+                    <Mail className="mr-2 h-4 w-4" />
+                    View Email Templates for Suppliers
+                  </Button>
+                </a>
               </div>
             </CardContent>
           </Card>
