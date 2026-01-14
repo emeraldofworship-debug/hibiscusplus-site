@@ -111,6 +111,72 @@ const LaunchChecklist = () => {
         description: 'Secure spots at local markets'
       }
     ],
+    sourcing: [
+      {
+        id: 18,
+        task: 'Request samples from Cotswold Health',
+        completed: false,
+        priority: 'high',
+        email: 'info@cotswoldhealthproducts.com',
+        phone: '01242 570075',
+        description: 'Dried hibiscus and organic herbs samples'
+      },
+      {
+        id: 19,
+        task: 'Request samples from Baldwin\\'s',
+        completed: false,
+        priority: 'high',
+        email: 'sales@baldwins.co.uk',
+        phone: '020 7703 5550',
+        description: 'Premium herbal blends samples'
+      },
+      {
+        id: 20,
+        task: 'Get quote from Teaware UK',
+        completed: false,
+        priority: 'medium',
+        link: 'https://www.teaware.co.uk',
+        description: 'Glass infusers and ceramic teapots pricing'
+      },
+      {
+        id: 21,
+        task: 'Contact Churchill China for custom tea sets',
+        completed: false,
+        priority: 'medium',
+        phone: '01782 577566',
+        description: 'Custom branded ceramic sets with MOQ'
+      },
+      {
+        id: 22,
+        task: 'Get packaging quote from Duo UK',
+        completed: false,
+        priority: 'high',
+        email: 'Contact via website',
+        phone: '01752 633007',
+        description: 'Custom printed pouches and kraft bags'
+      },
+      {
+        id: 23,
+        task: 'Test recipes with sourced ingredients',
+        completed: false,
+        priority: 'critical',
+        description: 'Quality control before launch'
+      },
+      {
+        id: 24,
+        task: 'Calculate final product pricing',
+        completed: false,
+        priority: 'high',
+        description: 'Cost + markup + shipping consideration'
+      },
+      {
+        id: 25,
+        task: 'Explore Nigerian snacks suppliers',
+        completed: false,
+        priority: 'low',
+        description: 'Feco Foods or JDM Food Group for future expansion'
+      }
+    ],
     website: [
       { 
         id: 14, 
