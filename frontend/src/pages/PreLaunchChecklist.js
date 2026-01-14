@@ -41,7 +41,7 @@ const PreLaunchChecklist = () => {
     ],
     productsAndSuppliers: [
       { id: 27, task: 'Request samples from Cotswold Health', completed: false, priority: 'high', note: 'Dried hibiscus' },
-      { id: 28, task: 'Request samples from Baldwin\\'s', completed: false, priority: 'high', note: 'Herbal blends' },
+      { id: 28, task: 'Request samples from Baldwin\'s', completed: false, priority: 'high', note: 'Herbal blends' },
       { id: 29, task: 'Contact Supplement Factory UK (dropshipping)', completed: false, priority: 'high', note: 'Phone: 0330 311 2761' },
       { id: 30, task: 'Contact UK Loose Leaf Tea Co. (dropshipping)', completed: false, priority: 'high' },
       { id: 31, task: 'Get packaging quotes from Duo UK', completed: false, priority: 'medium', note: 'Tea bags, pouches' },
