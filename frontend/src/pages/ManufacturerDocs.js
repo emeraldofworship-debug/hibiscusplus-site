@@ -12,6 +12,32 @@ const ManufacturerDocs = () => {
     toast.success(`${label} copied to clipboard!`);
   };
 
+  const downloadAsFile = (content, filename) => {
+    const element = document.createElement('a');
+    const file = new Blob([content], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = filename;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+    toast.success(`${filename} downloaded!`);
+  };
+
+  const downloadAllDocs = () => {
+    // Download all three documents
+    downloadAsFile(emailUKLooseLeaf, 'HibiscusPlus_Email_UK_Loose_Leaf_Tea.txt');
+    setTimeout(() => {
+      downloadAsFile(emailTeaPeople, 'HibiscusPlus_Email_Tea_People.txt');
+    }, 500);
+    setTimeout(() => {
+      downloadAsFile(recipeSpec, 'HibiscusPlus_Recipe_Specifications.txt');
+    }, 1000);
+    setTimeout(() => {
+      downloadAsFile(packagingBrief, 'HibiscusPlus_Packaging_Brief.txt');
+    }, 1500);
+    toast.success('Downloading all documents!');
+  };
+
   // Email Template for UK Loose Leaf Tea Company
   const emailUKLooseLeaf = `Subject: Custom Recipe Tea Bags + Dropshipping Inquiry - HibiscusPlus
 
