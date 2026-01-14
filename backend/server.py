@@ -1,14 +1,19 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, EmailStr, ConfigDict
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+
+from models.recipe import Recipe, RecipeCreate
+from models.product import Product, ProductCreate
+from models.blog import BlogPost, BlogPostCreate
+from models.newsletter import NewsletterSubscriber, NewsletterSubscribe
 
 
 ROOT_DIR = Path(__file__).parent
