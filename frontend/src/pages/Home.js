@@ -509,6 +509,17 @@ const Home = () => {
                   <CardTitle className="text-xl">{product.name}</CardTitle>
                   <CardDescription>{product.description}</CardDescription>
                 </CardHeader>
+                <CardContent>
+                  {product.allergen_info && (
+                    <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                      <p className="text-xs font-semibold text-yellow-800 mb-1">⚠️ Allergen Information:</p>
+                      <p className="text-xs text-yellow-700">{product.allergen_info}</p>
+                      {product.allergen_free && (
+                        <p className="text-xs text-green-700 mt-1">✓ {product.allergen_free}</p>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
                 <CardFooter className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-rose-600">${product.price}</span>
                   <Button className="bg-rose-600 hover:bg-rose-700" onClick={() => toast.info('Products coming soon! Sign up for our newsletter to be notified.')}>
