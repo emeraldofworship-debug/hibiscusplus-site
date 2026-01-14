@@ -431,9 +431,9 @@ const Home = () => {
                 </CardHeader>
                 <CardFooter className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-rose-600">${product.price}</span>
-                  <Button className="bg-rose-600 hover:bg-rose-700" onClick={() => toast.success('Added to cart!')}>
+                  <Button className="bg-rose-600 hover:bg-rose-700" onClick={() => toast.info('Products coming soon! Sign up for our newsletter to be notified.')}>
                     <ShoppingCart className="mr-2 h-4 w-4" />
-                    Add to Cart
+                    Coming Soon
                   </Button>
                 </CardFooter>
               </Card>
