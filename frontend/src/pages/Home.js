@@ -6,11 +6,14 @@ import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
-import { Search, Heart, ShoppingCart, BookOpen, Mail, Leaf, Shield, Sparkles, Activity, Zap, ChevronRight, Filter, X, Bookmark, Printer } from 'lucide-react';
-import { recipes, products, blogPosts, hibiscusBenefits } from '../mock';
+import { Search, Heart, ShoppingCart, BookOpen, Mail, Leaf, Shield, Sparkles, Activity, Zap, ChevronRight, Filter, X, Bookmark, Printer, Loader2 } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 import { Toaster } from '../components/ui/sonner';
 import { toast } from 'sonner';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,6 +21,13 @@ const Home = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [selectedAilment, setSelectedAilment] = useState('');
   const [email, setEmail] = useState('');
+  
+  // API Data States
+  const [recipes, setRecipes] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('savedRecipes');
