@@ -8,6 +8,7 @@ import Suppliers from './pages/Suppliers';
 import EmailTemplates from './pages/EmailTemplates';
 import LogoGuide from './pages/LogoGuide';
 import PreLaunchChecklist from './pages/PreLaunchChecklist';
+import ManufacturerDocs from './pages/ManufacturerDocs';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/email-templates" element={<EmailTemplates />} />
           <Route path="/logo-guide" element={<LogoGuide />} />
           <Route path="/pre-launch" element={<PreLaunchChecklist />} />
+          <Route path="/manufacturer-docs" element={<ManufacturerDocs />} />
         </Routes>
       </BrowserRouter>
     </div>
