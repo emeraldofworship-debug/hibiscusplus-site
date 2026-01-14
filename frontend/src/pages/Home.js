@@ -165,11 +165,21 @@ const Home = () => {
     printWindow.print();
   };
 
-  const handleNewsletterSignup = (e) => {
+  const handleNewsletterSignup = async (e) => {
     e.preventDefault();
     if (email) {
-      toast.success('Thank you for subscribing! Check your email for confirmation.');
-      setEmail('');
+      try {
+        const response = await axios.post(`${API}/newsletter/subscribe`, { email });
+        if (response.data.success) {
+          toast.success(response.data.message || 'Thank you for subscribing! Check your email for confirmation.');
+          setEmail('');
+        } else {
+          toast.error(response.data.error || 'Failed to subscribe');
+        }
+      } catch (err) {
+        console.error('Newsletter subscription error:', err);
+        toast.error('Failed to subscribe. Please try again.');
+      }
     }
   };
 
