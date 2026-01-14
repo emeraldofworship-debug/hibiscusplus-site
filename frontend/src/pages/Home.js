@@ -386,8 +386,34 @@ const Home = () => {
       {/* Shop Section */}
       <section id="shop" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
+          {/* Coming Soon Banner */}
+          <div className="max-w-3xl mx-auto mb-12">
+            <Card className="border-rose-200 bg-gradient-to-r from-rose-50 to-purple-50">
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <Badge className="mb-4 bg-rose-600 text-white hover:bg-rose-700">Coming Soon</Badge>
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900">We're Getting Ready to Launch!</h3>
+                  <p className="text-gray-600 mb-4">
+                    Our shop is currently in development. We're working on bringing you the finest hibiscus blends and wellness products.
+                  </p>
+                  <p className="text-sm text-gray-500 mb-6">
+                    Currently completing business registration with Manchester City Council. Products will be available soon!
+                  </p>
+                  <div className="flex gap-3 justify-center flex-wrap">
+                    <Button className="bg-rose-600 hover:bg-rose-700" onClick={() => window.location.href = '#contact'}>
+                      Get Notified at Launch
+                    </Button>
+                    <Button variant="outline" className="border-rose-300 text-rose-600 hover:bg-rose-50" onClick={() => window.location.href = '/checklist'}>
+                      View Launch Progress
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">Shop Premium Products</h2>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">Coming Soon: Premium Products</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               High-quality organic hibiscus and carefully curated blends
             </p>
