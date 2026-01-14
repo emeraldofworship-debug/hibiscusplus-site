@@ -7,6 +7,7 @@ import BrandAssets from './pages/BrandAssets';
 import Suppliers from './pages/Suppliers';
 import EmailTemplates from './pages/EmailTemplates';
 import LogoGuide from './pages/LogoGuide';
+import PreLaunchChecklist from './pages/PreLaunchChecklist';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/email-templates" element={<EmailTemplates />} />
           <Route path="/logo-guide" element={<LogoGuide />} />
+          <Route path="/pre-launch" element={<PreLaunchChecklist />} />
         </Routes>
       </BrowserRouter>
     </div>
