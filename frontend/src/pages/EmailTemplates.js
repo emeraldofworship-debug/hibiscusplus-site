@@ -263,7 +263,7 @@ Instagram: @hibiscusplus`
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <img src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png" alt="HibiscusPlus" className="h-10 w-auto" data-testid="header-logo" />
+              <img src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png" alt="HibiscusPlus" className="h-14 w-auto object-contain" data-testid="header-logo" />
             </div>
             <nav className="hidden md:flex items-center gap-6">
               <a href="/" className="text-gray-700 hover:text-rose-600 transition-colors">Home</a>
