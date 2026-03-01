@@ -654,6 +654,8 @@ const Home = () => {
                 <li><a href="/checklist" className="hover:text-rose-400 transition-colors">Launch Progress</a></li>
                 <li><a href="/brand-assets" className="hover:text-rose-400 transition-colors">Brand Assets</a></li>
                 <li><a href="/suppliers" className="hover:text-rose-400 transition-colors">Suppliers</a></li>
+                <li><a href="/social-media" className="hover:text-rose-400 transition-colors">Social Media Guide</a></li>
+                <li><a href="/company-setup" className="hover:text-rose-400 transition-colors">Company Setup</a></li>
               </ul>
             </div>
             <div>
