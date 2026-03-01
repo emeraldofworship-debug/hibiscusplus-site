@@ -136,16 +136,16 @@ def create_letterhead(output_path):
     c.drawImage(logo, logo_x, logo_y, width=logo_w, height=logo_h, preserveAspectRatio=True, mask='auto')
 
     # === COMPANY NAME ===
-    name_y = logo_y - 6 * mm
+    name_y = logo_y - 4 * mm
     c.setFont("Helvetica-Bold", 16)
     c.setFillColor(ROSE_DEEP)
     c.drawCentredString(PAGE_W / 2, name_y, "HIBISCUSPLUS LIMITED")
 
     # === TAGLINE ===
-    tagline_y = name_y - 8 * mm
+    tagline_y = name_y - 6.5 * mm
     c.setFont("Helvetica-Oblique", 10.5)
     c.setFillColor(BURGUNDY)
-    c.drawCentredString(PAGE_W / 2, tagline_y, "Boldly Spiced ......... Beautifully Balanced")
+    c.drawCentredString(PAGE_W / 2, tagline_y, "Boldly Spiced \u00b7\u00b7\u00b7 Beautifully Balanced")
 
     # === DECORATIVE DIVIDER ===
     divider_y = tagline_y - 5 * mm
