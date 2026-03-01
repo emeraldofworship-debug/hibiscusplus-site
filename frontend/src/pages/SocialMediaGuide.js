@@ -195,10 +195,7 @@ const SocialMediaGuide = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Leaf className="h-8 w-8 text-rose-600" />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                HibiscusPlus
-              </h1>
+              <img src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png" alt="HibiscusPlus" className="h-10 w-auto" data-testid="header-logo" />
             </div>
             <Link to="/">
               <Button variant="outline" className="border-rose-300 text-rose-600 hover:bg-rose-50" data-testid="back-home-btn">
