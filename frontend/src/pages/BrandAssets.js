@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
-import { Leaf, Download, Copy, CheckCircle2, Palette, Type, Image as ImageIcon } from 'lucide-react';
+import { Leaf, Download, Copy, CheckCircle2, Palette, Type, Image as ImageIcon, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { Toaster } from '../components/ui/sonner';
 
