@@ -108,19 +108,19 @@ def create_letterhead(output_path):
     c.line(20 * mm, gold_y, PAGE_W - 20 * mm, gold_y)
 
     # === LEFT BORDER: Subtle vertical fade ===
-    left_band_w = 12 * mm
-    draw_gradient_rect_alpha(c, 0, 30 * mm, left_band_w, PAGE_H - 55 * mm, ROSE_LIGHT, 0.2, 0.0, steps=40, direction='horizontal_ltr')
+    left_band_w = 14 * mm
+    draw_gradient_rect_alpha(c, 0, 30 * mm, left_band_w, PAGE_H - 55 * mm, ROSE_LIGHT, 0.18, 0.0, steps=80, direction='horizontal_ltr')
 
     # === RIGHT BORDER: Subtle vertical fade ===
-    right_band_w = 12 * mm
-    draw_gradient_rect_alpha(c, PAGE_W - right_band_w, 30 * mm, right_band_w, PAGE_H - 55 * mm, ROSE_LIGHT, 0.2, 0.0, steps=40, direction='horizontal_rtl')
+    right_band_w = 14 * mm
+    draw_gradient_rect_alpha(c, PAGE_W - right_band_w, 30 * mm, right_band_w, PAGE_H - 55 * mm, ROSE_LIGHT, 0.18, 0.0, steps=80, direction='horizontal_rtl')
 
     # === BOTTOM BORDER: Gradient that fades upward ===
-    bottom_band_h = 28 * mm
+    bottom_band_h = 26 * mm
     # Fading rose gradient
-    draw_gradient_rect_alpha(c, 0, 0, PAGE_W, bottom_band_h - 4 * mm, ROSE_LIGHT, 0.0, 0.35, steps=60, direction='vertical')
+    draw_gradient_rect_alpha(c, 0, 0, PAGE_W, bottom_band_h - 4 * mm, ROSE_LIGHT, 0.0, 0.30, steps=120, direction='vertical')
     # Solid band at very bottom
-    draw_gradient_rect(c, 0, 0, PAGE_W, 4 * mm, BURGUNDY, ROSE_DEEP, steps=50, direction='horizontal')
+    draw_gradient_rect(c, 0, 0, PAGE_W, 4 * mm, BURGUNDY, ROSE_DEEP, steps=160, direction='horizontal')
 
     # === THIN GOLD LINE above bottom band ===
     c.setStrokeColor(GOLD_WARM)
