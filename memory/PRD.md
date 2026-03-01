@@ -24,15 +24,23 @@ Build a comprehensive wellbeing website for **HIBISCUSPLUS LIMITED** (Company No
 - **Backend:** FastAPI, Pydantic
 - **Database:** MongoDB (motor async driver)
 
+## Official Logos
+- **Logo 1 (Light):** For website, tea packaging, social media, email signatures
+  - URL: `https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png`
+- **Logo 2 (Dark):** For market stall banners, signage, physical menus, cups
+  - URL: `https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/hwy1fub7_HibiscuPlus.png`
+
 ## What's Been Implemented
 - Full-stack application with all core sections
-- 12 tea recipes (6 general + 6 signature Zobo with research-backed benefits)
+- 12 tea recipes (6 general + 6 signature Zobo with research-backed benefits & beetroot)
 - 17 products in "Coming Soon" mode
 - Blog section with articles
 - Newsletter subscription
 - Multiple guidance pages (LaunchChecklist, PreLaunchChecklist, CompanySetupGuide, ManufacturerDocs, EmailTemplates, Suppliers, BrandAssets, LogoGuide)
 - Social Media & Email Setup Guide page
 - Complete rebranding to "HibiscusPlus" (from former "Hibiscus & Beyond")
+- Official logo integrated into website header across ALL pages
+- Both logos displayed on Brand Assets page with usage guidelines
 
 ## Signature Zobo Recipes (Research-Backed)
 | ID | Name | Beetroot | Key Benefit |
@@ -45,8 +53,8 @@ Build a comprehensive wellbeing website for **HIBISCUSPLUS LIMITED** (Company No
 | 12 | Citrus Lime Zing Zobo | Yes | Detox, immunity, energy |
 
 ## Upcoming Tasks (Prioritised)
-- **P1:** Build Admin Panel for content management
-- **P2:** Logo upload functionality
+- **P1:** Build Admin Panel for content management (recipes, products, blogs)
+- **P2:** Logo upload functionality (allow user to update logos dynamically)
 - **P2:** Activate shop with Stripe payment integration (blocked until user confirms readiness)
 - **P3:** Add Nigerian Snacks category to shop
 
@@ -64,7 +72,7 @@ Build a comprehensive wellbeing website for **HIBISCUSPLUS LIMITED** (Company No
 | `/pre-launch` | PreLaunchChecklist |
 | `/company-setup` | CompanySetupGuide |
 | `/social-media` | SocialMediaGuide |
-| `/brand-assets` | BrandAssets |
+| `/brand-assets` | BrandAssets (both logos) |
 | `/suppliers` | Suppliers |
 | `/email-templates` | EmailTemplates |
 | `/logo-guide` | LogoGuide |
