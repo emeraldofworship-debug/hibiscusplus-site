@@ -610,8 +610,9 @@ const Home = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="h-6 w-6 text-rose-400" />
-                <h3 className="text-xl font-bold">Hibiscus & Beyond</h3>
+                <h3 className="text-xl font-bold">HIBISCUSPLUS LIMITED</h3>
               </div>
+              <p className="text-gray-400 text-sm">Company No. 17024055</p>
               <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
               
               {/* Social Media Links */}
