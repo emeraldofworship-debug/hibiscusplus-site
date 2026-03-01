@@ -48,7 +48,7 @@ def download_logo():
     return ImageReader(buf)
 
 
-def draw_gradient_rect(c, x, y, w, h, color_start, color_end, steps=80, direction='vertical'):
+def draw_gradient_rect(c, x, y, w, h, color_start, color_end, steps=160, direction='vertical'):
     """Draw a smooth gradient rectangle."""
     for i in range(steps):
         t = i / float(steps)
@@ -64,7 +64,7 @@ def draw_gradient_rect(c, x, y, w, h, color_start, color_end, steps=80, directio
             c.rect(x + i * strip_w, y, strip_w + 0.5, h, stroke=0, fill=1)
 
 
-def draw_gradient_rect_alpha(c, x, y, w, h, color, alpha_start, alpha_end, steps=60, direction='vertical'):
+def draw_gradient_rect_alpha(c, x, y, w, h, color, alpha_start, alpha_end, steps=120, direction='vertical'):
     """Draw a gradient that fades from one alpha to another, blending with cream."""
     for i in range(steps):
         t = i / float(steps)
