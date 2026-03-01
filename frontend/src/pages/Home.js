@@ -709,8 +709,9 @@ const Home = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Hibiscus & Beyond. All rights reserved.</p>
-            <p className="text-sm text-gray-500 mt-2">Natural healing through hibiscus blends and artisanal wellness</p>
+            <p>&copy; 2025 HIBISCUSPLUS LIMITED. All rights reserved.</p>
+            <p className="text-sm text-gray-500 mt-2">Registered in England and Wales | Company No. 17024055</p>
+            <p className="text-sm text-gray-500">Natural healing through hibiscus blends and artisanal wellness</p>
           </div>
         </div>
       </footer>
