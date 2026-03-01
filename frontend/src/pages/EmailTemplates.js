@@ -21,7 +21,7 @@ const EmailTemplates = () => {
 
 I hope this email finds you well.
 
-My name is [Your Name], and I'm the founder of Hibiscus & Beyond, a new wellness business based in Manchester, UK, specializing in artisanal hibiscus tea blends and herbal products.
+My name is [Your Name], and I'm the founder of HibiscusPlus, a new wellness business based in Manchester, UK, specializing in artisanal hibiscus tea blends and herbal products.
 
 We are currently in the pre-launch phase and are seeking high-quality suppliers for our product range. I came across your company and was impressed by [specific detail about their products/reputation].
 
@@ -43,8 +43,8 @@ Thank you for your time and consideration. I look forward to hearing from you.
 
 Best regards,
 [Your Name]
-Hibiscus & Beyond
-Email: hello@hibiscusandbeyond.co.uk
+HibiscusPlus
+Email: hello@hibiscusplus.co.uk
 Phone: +44 161 123 4567
 Website: [Your Website]
 Manchester, UK`
@@ -52,12 +52,12 @@ Manchester, UK`
     pricing: {
       title: 'Wholesale Pricing Inquiry',
       recipient: 'All Suppliers',
-      subject: 'Wholesale Pricing Inquiry - Hibiscus & Beyond',
+      subject: 'Wholesale Pricing Inquiry - HibiscusPlus',
       body: `Dear [Supplier Name],
 
 I hope this message finds you well.
 
-I am writing on behalf of Hibiscus & Beyond, a Manchester-based wellness company specializing in premium hibiscus tea blends and natural health products. We are currently sourcing suppliers for our launch and expansion plans.
+I am writing on behalf of HibiscusPlus, a Manchester-based wellness company specializing in premium hibiscus tea blends and natural health products. We are currently sourcing suppliers for our launch and expansion plans.
 
 We are interested in the following products:
 - [List specific products]
@@ -79,8 +79,8 @@ Thank you for your time, and I look forward to the possibility of working togeth
 
 Warm regards,
 [Your Name]
-Founder, Hibiscus & Beyond
-hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+hello@hibiscusplus.co.uk
 +44 161 123 4567`
     },
     packaging: {
@@ -91,7 +91,7 @@ hello@hibiscusandbeyond.co.uk
 
 I hope you're doing well.
 
-My name is [Your Name], and I'm reaching out from Hibiscus & Beyond, a new wellness brand launching in Manchester. We specialize in artisanal hibiscus tea blends and are seeking a packaging partner for our products.
+My name is [Your Name], and I'm reaching out from HibiscusPlus, a new wellness brand launching in Manchester. We specialize in artisanal hibiscus tea blends and are seeking a packaging partner for our products.
 
 We are interested in custom packaging solutions for our tea blends:
 
@@ -121,8 +121,8 @@ Thank you for your time. I look forward to your response.
 
 Best wishes,
 [Your Name]
-Hibiscus & Beyond
-hello@hibiscusandbeyond.co.uk
+HibiscusPlus
+hello@hibiscusplus.co.uk
 +44 161 123 4567`
     },
     accessories: {
@@ -133,7 +133,7 @@ hello@hibiscusandbeyond.co.uk
 
 Good day!
 
-I am contacting you from Hibiscus & Beyond, a wellness brand based in Manchester, UK, specializing in premium hibiscus tea products. We are currently building our product range and are interested in adding quality tea accessories.
+I am contacting you from HibiscusPlus, a wellness brand based in Manchester, UK, specializing in premium hibiscus tea products. We are currently building our product range and are interested in adding quality tea accessories.
 
 We are particularly interested in:
 - Glass tea infuser bottles (300-500ml capacity)
@@ -160,8 +160,8 @@ Thank you for your consideration. I look forward to exploring a potential partne
 
 Kind regards,
 [Your Name]
-Founder, Hibiscus & Beyond
-hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+hello@hibiscusplus.co.uk
 +44 161 123 4567
 Manchester, UK`
     },
@@ -173,7 +173,7 @@ Manchester, UK`
 
 I hope this email finds you well.
 
-I am writing to inquire about your contract manufacturing services for herbal tea blends. My company, Hibiscus & Beyond, is a Manchester-based wellness brand preparing to launch premium hibiscus tea products in the UK market.
+I am writing to inquire about your contract manufacturing services for herbal tea blends. My company, HibiscusPlus, is a Manchester-based wellness brand preparing to launch premium hibiscus tea products in the UK market.
 
 **About Our Business:**
 - Product: Artisanal herbal tea blends featuring hibiscus as the primary ingredient
@@ -209,24 +209,24 @@ Thank you for your time and consideration. I look forward to hearing from you.
 
 Best regards,
 [Your Name]
-Founder, Hibiscus & Beyond
-hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+hello@hibiscusplus.co.uk
 +44 161 123 4567
-www.hibiscusandbeyond.co.uk`
+www.hibiscusplus.co.uk`
     },
     partnership: {
       title: 'Partnership Proposal',
       recipient: 'Local Manchester Businesses',
-      subject: 'Partnership Opportunity - Hibiscus & Beyond Wellness Teas',
+      subject: 'Partnership Opportunity - HibiscusPlus Wellness Teas',
       body: `Dear [Business Name],
 
 I hope this message finds you well.
 
-My name is [Your Name], and I'm the founder of Hibiscus & Beyond, a new Manchester-based wellness brand specializing in premium hibiscus tea blends and natural health products.
+My name is [Your Name], and I'm the founder of HibiscusPlus, a new Manchester-based wellness brand specializing in premium hibiscus tea blends and natural health products.
 
 I've been following your business and am impressed by [specific detail about their business/values]. I believe there could be a fantastic opportunity for collaboration between our brands.
 
-**About Hibiscus & Beyond:**
+**About HibiscusPlus:**
 - Premium artisanal hibiscus tea blends
 - Focus on natural wellness and health benefits
 - Locally based in Manchester
@@ -247,10 +247,10 @@ Thank you for considering this opportunity. I look forward to potentially connec
 
 Warm regards,
 [Your Name]
-Founder, Hibiscus & Beyond
-hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+hello@hibiscusplus.co.uk
 +44 161 123 4567
-Instagram: @hibiscusandbeyond`
+Instagram: @hibiscusplus`
     }
   };
 
@@ -265,7 +265,7 @@ Instagram: @hibiscusandbeyond`
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-rose-600" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                Hibiscus & Beyond
+                HibiscusPlus
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-6">
@@ -383,27 +383,27 @@ Instagram: @hibiscusandbeyond`
                 <h4 className="font-semibold mb-2 text-rose-700">Your Email Signature Template:</h4>
                 <pre className="text-sm text-gray-700 whitespace-pre-wrap">
 {`[Your Name]
-Founder, Hibiscus & Beyond
-📧 hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+📧 hello@hibiscusplus.co.uk
 📱 +44 161 123 4567
-🌐 www.hibiscusandbeyond.co.uk
+🌐 www.hibiscusplus.co.uk
 📍 Manchester, UK
 
 🌺 Natural healing through hibiscus blends and artisanal wellness
-Instagram: @hibiscusandbeyond | Facebook: @hibiscusandbeyond`}
+Instagram: @hibiscusplus | Facebook: @hibiscusplus`}
                 </pre>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => copyToClipboard(`[Your Name]
-Founder, Hibiscus & Beyond
-📧 hello@hibiscusandbeyond.co.uk
+Founder, HibiscusPlus
+📧 hello@hibiscusplus.co.uk
 📱 +44 161 123 4567
-🌐 www.hibiscusandbeyond.co.uk
+🌐 www.hibiscusplus.co.uk
 📍 Manchester, UK
 
 🌺 Natural healing through hibiscus blends and artisanal wellness
-Instagram: @hibiscusandbeyond | Facebook: @hibiscusandbeyond`, 'Email signature')}
+Instagram: @hibiscusplus | Facebook: @hibiscusplus`, 'Email signature')}
                   className="mt-3 border-rose-300 text-rose-600 hover:bg-rose-50"
                 >
                   <Copy className="mr-2 h-3 w-3" />
@@ -420,10 +420,10 @@ Instagram: @hibiscusandbeyond | Facebook: @hibiscusandbeyond`, 'Email signature'
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Leaf className="h-6 w-6 text-rose-400" />
-            <h3 className="text-xl font-bold">Hibiscus & Beyond</h3>
+            <h3 className="text-xl font-bold">HibiscusPlus</h3>
           </div>
           <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Hibiscus & Beyond. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 HibiscusPlus. All rights reserved.</p>
         </div>
       </footer>
     </div>

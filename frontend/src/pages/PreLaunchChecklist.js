@@ -8,7 +8,7 @@ import { CheckCircle2, Circle, AlertCircle, ExternalLink, Leaf } from 'lucide-re
 const PreLaunchChecklist = () => {
   const [checklist, setChecklist] = useState({
     brandingAndLegal: [
-      { id: 1, task: 'Decide on final business name', completed: false, priority: 'critical', note: 'HibiscusPlus vs Hibiscus & Beyond' },
+      { id: 1, task: 'Decide on final business name', completed: false, priority: 'critical', note: 'HibiscusPlus vs HibiscusPlus' },
       { id: 2, task: 'Register domain name (hibiscusplus.co.uk)', completed: false, priority: 'critical', link: 'https://www.namecheap.com' },
       { id: 3, task: 'Create logo on Canva', completed: false, priority: 'high', link: 'https://www.canva.com/create/logos/' },
       { id: 4, task: 'Register company with Companies House (if Ltd)', completed: false, priority: 'high', link: 'https://www.gov.uk/register-a-company' },

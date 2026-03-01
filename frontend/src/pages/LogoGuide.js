@@ -32,7 +32,7 @@ const LogoGuide = () => {
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-rose-600" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                Hibiscus & Beyond
+                HibiscusPlus
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-6">
@@ -71,7 +71,7 @@ const LogoGuide = () => {
                     <div className="flex items-center gap-3">
                       <Leaf className="h-12 w-12 text-rose-600" />
                       <div className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                        Hibiscus & Beyond
+                        HibiscusPlus
                       </div>
                     </div>
                   </div>
@@ -150,7 +150,7 @@ const LogoGuide = () => {
                       <p className="font-semibold text-rose-700">Quick Steps:</p>
                       <ol className="list-decimal list-inside space-y-1 text-gray-600">
                         <li>Visit Looka.com</li>
-                        <li>Enter "Hibiscus & Beyond"</li>
+                        <li>Enter "HibiscusPlus"</li>
                         <li>Choose wellness/health industry</li>
                         <li>Pick your favorite design</li>
                       </ol>
@@ -370,10 +370,10 @@ const LogoGuide = () => {
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Leaf className="h-6 w-6 text-rose-400" />
-            <h3 className="text-xl font-bold">Hibiscus & Beyond</h3>
+            <h3 className="text-xl font-bold">HibiscusPlus</h3>
           </div>
           <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Hibiscus & Beyond. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 HibiscusPlus. All rights reserved.</p>
         </div>
       </footer>
     </div>

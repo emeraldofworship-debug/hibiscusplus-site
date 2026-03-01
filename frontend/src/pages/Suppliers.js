@@ -138,7 +138,7 @@ const Suppliers = () => {
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-rose-600" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                Hibiscus & Beyond
+                HibiscusPlus
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-6">
@@ -467,10 +467,10 @@ const Suppliers = () => {
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Leaf className="h-6 w-6 text-rose-400" />
-            <h3 className="text-xl font-bold">Hibiscus & Beyond</h3>
+            <h3 className="text-xl font-bold">HibiscusPlus</h3>
           </div>
           <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Hibiscus & Beyond. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 HibiscusPlus. All rights reserved.</p>
         </div>
       </footer>
     </div>
