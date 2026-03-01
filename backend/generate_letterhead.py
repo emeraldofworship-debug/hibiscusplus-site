@@ -95,16 +95,16 @@ def create_letterhead(output_path):
     c.rect(0, 0, PAGE_W, PAGE_H, stroke=0, fill=1)
 
     # === TOP BORDER: Rose gradient that fades into the page ===
-    top_band_h = 18 * mm
+    top_band_h = 20 * mm
     # Solid rose-to-burgundy band at very top
-    draw_gradient_rect(c, 0, PAGE_H - 6 * mm, PAGE_W, 6 * mm, ROSE_DEEP, BURGUNDY, steps=50, direction='horizontal')
+    draw_gradient_rect(c, 0, PAGE_H - 5 * mm, PAGE_W, 5 * mm, ROSE_DEEP, BURGUNDY, steps=160, direction='horizontal')
     # Fading rose gradient below the solid band
-    draw_gradient_rect_alpha(c, 0, PAGE_H - top_band_h, PAGE_W, top_band_h - 6 * mm, ROSE_LIGHT, 0.45, 0.0, steps=60, direction='vertical')
+    draw_gradient_rect_alpha(c, 0, PAGE_H - top_band_h, PAGE_W, top_band_h - 5 * mm, ROSE_LIGHT, 0.40, 0.0, steps=120, direction='vertical')
 
     # === THIN GOLD ACCENT LINE below top band ===
     c.setStrokeColor(GOLD_WARM)
     c.setLineWidth(0.6)
-    gold_y = PAGE_H - 6.5 * mm
+    gold_y = PAGE_H - 5.5 * mm
     c.line(20 * mm, gold_y, PAGE_W - 20 * mm, gold_y)
 
     # === LEFT BORDER: Subtle vertical fade ===
