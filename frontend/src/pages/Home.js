@@ -606,8 +606,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Leaf className="h-6 w-6 text-rose-400" />
-                <h3 className="text-xl font-bold">HIBISCUSPLUS LIMITED</h3>
+                <img src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png" alt="HibiscusPlus" className="h-12 w-auto rounded" data-testid="footer-logo" />
               </div>
               <p className="text-gray-400 text-sm">Company No. 17024055</p>
               <p className="text-gray-400">Natural healing through hibiscus blends and artisanal wellness</p>
