@@ -91,35 +91,35 @@ const BrandAssets = () => {
             
             <Card className="mb-6 border-rose-200">
               <CardHeader>
-                <CardTitle>Primary Logo</CardTitle>
-                <CardDescription>Leaf icon with gradient text - use on light backgrounds</CardDescription>
+                <CardTitle>Official Logos</CardTitle>
+                <CardDescription>Two logo versions for different use cases</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="bg-white p-8 rounded-lg border border-gray-200 flex items-center justify-center mb-6">
-                  <div className="flex items-center gap-3">
-                    <Leaf className="h-16 w-16 text-rose-600" />
-                    <div className="text-4xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
-                      HibiscusPlus
-                    </div>
+              <CardContent className="space-y-8">
+                {/* Logo 1 - Light Version */}
+                <div>
+                  <h4 className="font-semibold text-lg mb-2">Logo 1 — Tea Blends & Digital</h4>
+                  <p className="text-sm text-gray-500 mb-4">Use for: Website, tea packaging, social media profiles, email signatures</p>
+                  <div className="bg-white p-8 rounded-lg border border-gray-200 flex items-center justify-center">
+                    <img 
+                      src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png" 
+                      alt="HibiscusPlus Logo - Light Version" 
+                      className="max-h-64 w-auto"
+                      data-testid="logo-light"
+                    />
                   </div>
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                {/* Logo 2 - Dark Version */}
+                <div>
+                  <h4 className="font-semibold text-lg mb-2">Logo 2 — Market Stalls & Physical Branding</h4>
+                  <p className="text-sm text-gray-500 mb-4">Use for: Market stall banners, signage, physical menus, cups, takeaway branding</p>
                   <div className="bg-gray-900 p-8 rounded-lg flex items-center justify-center">
-                    <div className="flex items-center gap-3">
-                      <Leaf className="h-12 w-12 text-rose-400" />
-                      <div className="text-2xl font-bold text-white">
-                        HibiscusPlus
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-rose-500 to-purple-600 p-8 rounded-lg flex items-center justify-center">
-                    <div className="flex items-center gap-3">
-                      <Leaf className="h-12 w-12 text-white" />
-                      <div className="text-2xl font-bold text-white">
-                        HibiscusPlus
-                      </div>
-                    </div>
+                    <img 
+                      src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/hwy1fub7_HibiscuPlus.png" 
+                      alt="HibiscusPlus Logo - Dark Version" 
+                      className="max-h-64 w-auto"
+                      data-testid="logo-dark"
+                    />
                   </div>
                 </div>
               </CardContent>
