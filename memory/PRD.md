@@ -52,6 +52,9 @@ Build a comprehensive wellbeing website for **HIBISCUSPLUS LIMITED** (Company No
 | 11 | Spiced Cinnamon Vanilla Zobo | Yes | Digestive health, blood sugar |
 | 12 | Citrus Lime Zing Zobo | Yes | Detox, immunity, energy |
 
+## Downloadable Assets
+- **A4 Letterhead PDF:** `/HibiscusPlus_Letterhead.pdf` — Professional letterhead with blended rose/cream gradient borders, Logo 1, tagline, and full contact details. For company use only (not linked on website).
+
 ## Upcoming Tasks (Prioritised)
 - **P1:** Build Admin Panel for content management (recipes, products, blogs)
 - **P2:** Logo upload functionality (allow user to update logos dynamically)
