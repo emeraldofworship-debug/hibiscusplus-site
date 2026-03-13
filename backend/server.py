@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Query
+from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -341,3 +342,10 @@ logger = logging.getLogger(__name__)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+@app.get("/api/download/letterhead")
+async def download_letterhead():
+    filepath = "/app/assets/HibiscusPlus_Letterhead.pdf"
+    if not os.path.exists(filepath):
+        raise HTTPException(status_code=404, detail="Letterhead not found")
+    return FileResponse(filepath, media_type="application/pdf", filename="HibiscusPlus_Letterhead.pdf")

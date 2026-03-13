@@ -317,7 +317,7 @@ const Home = () => {
                 {filteredRecipes.map(recipe => (
                   <Card key={recipe.id} className="overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
                     <div className="h-48 overflow-hidden">
-                      <img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover" />
+                      <img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover" loading="lazy" />
                     </div>
                     <CardHeader>
                       <div className="flex justify-between items-start mb-2">
@@ -499,7 +499,7 @@ const Home = () => {
             {products.map(product => (
               <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
                 <div className="h-64 overflow-hidden">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <CardHeader>
                   <Badge className="w-fit bg-purple-100 text-purple-700 mb-2">{product.category}</Badge>
@@ -543,7 +543,7 @@ const Home = () => {
             {blogPosts.map(post => (
               <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
                 <div className="h-48 overflow-hidden">
-                  <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                  <img src={post.image} alt={post.title} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <CardHeader>
                   <Badge className="w-fit bg-rose-100 text-rose-700 mb-2">{post.category}</Badge>
