@@ -176,6 +176,40 @@ class TestNewsletterAPI:
         assert data["success"] == True
 
 
+class TestFeedbackAPI:
+    """Tests for /api/feedback endpoint - Chester Tea Tasting Event feedback"""
+    
+    def test_submit_feedback(self):
+        """Test feedback submission"""
+        import uuid
+        test_feedback = {
+            "name": f"TEST_User_{uuid.uuid4().hex[:6]}",
+            "email": f"test_{uuid.uuid4().hex[:6]}@example.com",
+            "blend": "Metabo Ignite",
+            "rating": 5,
+            "taste": "Bold and spicy",
+            "wouldBuy": "Absolutely",
+            "comments": "Test feedback submission"
+        }
+        
+        response = requests.post(f"{BASE_URL}/api/feedback", json=test_feedback)
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert data["status"] == "success"
+        assert data["message"] == "Feedback received"
+    
+    def test_get_feedback(self):
+        """Test retrieving feedback"""
+        response = requests.get(f"{BASE_URL}/api/feedback")
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert "count" in data
+        assert "data" in data
+        assert isinstance(data["data"], list)
+
+
 class TestAPIHealth:
     """Basic API health checks"""
     

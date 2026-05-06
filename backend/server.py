@@ -349,3 +349,16 @@ async def download_letterhead():
     if not os.path.exists(filepath):
         raise HTTPException(status_code=404, detail="Letterhead not found")
     return FileResponse(filepath, media_type="application/pdf", filename="HibiscusPlus_Letterhead.pdf")
+
+@app.post("/api/feedback")
+async def submit_feedback(feedback: dict):
+    from datetime import datetime, timezone
+    feedback["submitted_at"] = datetime.now(timezone.utc).isoformat()
+    await db.feedback.insert_one(feedback)
+    return {"status": "success", "message": "Feedback received"}
+
+@app.get("/api/feedback")
+async def get_feedback():
+    feedbacks = await db.feedback.find({}, {"_id": 0}).sort("submitted_at", -1).to_list(100)
+    return {"count": len(feedbacks), "data": feedbacks}
+
