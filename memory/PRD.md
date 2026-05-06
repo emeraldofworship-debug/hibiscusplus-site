@@ -36,12 +36,18 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - Premium dark luxury redesign (complete frontend overhaul)
 - Hero section with cinematic typography and moody imagery
 - Product showcase with AI-generated luxury matte black pouch mockups
-- Feedback page with QR code for Chester event + star rating + blend selection
+- **Market Stalls section** with The Makers Market locations (Northern Quarter 2nd Sunday, Bolton, Levenshulme, Media City)
+- **Street Food Menu** — Zobo, Koko, Puff Puff, Samosa, Akara, Spring Rolls
+- **Premium Nigerian Breakfast** signup form for interested customers
+- **Freshly Juiced Fruits** section with on-demand delivery info + social media announcement details
+- **Manchester Christmas Markets 2025** teaser (7th Nov – 22nd Dec)
+- **TikTok @hibiscusplus** integrated across site (fresh juices section + footer)
+- Feedback page with QR code for Chester event (9th May) + star rating + blend selection
 - Research-backed recipe collection (12 recipes, 6 signature Zobo with beetroot)
 - Newsletter subscription
 - Shopify shop integration (external link)
-- Full branding consistency (no old "Hibiscus & Beyond" references)
-- Contact info updated across site
+- Full branding consistency
+- Contact info: emeraldofworship@hibiscusplus.co.uk, 07508597742, @hibiscusplus_ltd
 - Internal guidance pages hidden from public navigation
 - A4 letterhead PDF (downloadable via /api/download/letterhead)
 
