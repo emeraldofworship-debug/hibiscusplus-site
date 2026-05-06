@@ -412,7 +412,11 @@ async def seed_admin_user():
 async def admin_login(payload: LoginRequest, request: Request):
     """Admin login. Returns JWT bearer token + sanitised user object."""
     email = payload.email.lower().strip()
-    ip = request.client.host if request.client else "unknown"
+    # Honour X-Forwarded-For (left-most public IP) when behind a proxy/ingress;
+    # fall back to the direct client. Without this the brute-force counter is
+    # split across rotating ingress pods.
+    fwd = request.headers.get("x-forwarded-for", "")
+    ip = (fwd.split(",")[0].strip() if fwd else None) or (request.client.host if request.client else "unknown")
 
     check_lockout(ip, email)
 
