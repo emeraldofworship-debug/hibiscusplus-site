@@ -14,12 +14,15 @@
 - `POST /api/admin/login` — body `{email, password}` → `{access_token, token_type, user}`
 - `GET /api/admin/me` — requires `Authorization: Bearer <token>`
 - `GET /api/admin/stats` — auth required
+- `POST /api/admin/change-password` — auth required, body `{current_password, new_password}`
 
 ## Admin CRUD Endpoints (all require Bearer token)
 
 - `POST/PUT/DELETE /api/admin/recipes[/:id]`
 - `POST/PUT/DELETE /api/admin/products[/:id]`
 - `POST/PUT/DELETE /api/admin/blog[/:id]`
+- `GET /api/admin/subscribers`
+- `GET /api/admin/feedback`
 
 ## Token storage (frontend)
 

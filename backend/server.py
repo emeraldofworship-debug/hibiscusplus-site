@@ -546,6 +546,47 @@ async def admin_stats(current=Depends(get_current_admin)):
     }
 
 
+# ----- Admin: Subscribers & Feedback viewers -----
+
+@api_router.get("/admin/subscribers", response_model=dict)
+async def admin_list_subscribers(current=Depends(get_current_admin)):
+    """All newsletter subscribers (active + unsubscribed). Sorted newest first."""
+    subs = await db.newsletter_subscribers.find({}, {"_id": 0}).sort("subscribed_at", -1).to_list(2000)
+    for s in subs:
+        if isinstance(s.get("subscribed_at"), datetime):
+            s["subscribed_at"] = s["subscribed_at"].isoformat()
+    return {"success": True, "data": subs, "count": len(subs)}
+
+
+@api_router.get("/admin/feedback", response_model=dict)
+async def admin_list_feedback(current=Depends(get_current_admin)):
+    """All feedback submissions, newest first."""
+    items = await db.feedback.find({}, {"_id": 0}).sort("submitted_at", -1).to_list(2000)
+    return {"success": True, "data": items, "count": len(items)}
+
+
+# ----- Admin: Self password change -----
+
+class PasswordChangeRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+
+@api_router.post("/admin/change-password", response_model=dict)
+async def admin_change_password(payload: PasswordChangeRequest, current=Depends(get_current_admin)):
+    """Self-service password change for the logged-in admin."""
+    if len(payload.new_password) < 8:
+        raise HTTPException(status_code=400, detail="New password must be at least 8 characters.")
+    user = await db.admin_users.find_one({"email": current["email"]})
+    if not user or not verify_password(payload.current_password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Current password is incorrect.")
+    await db.admin_users.update_one(
+        {"email": current["email"]},
+        {"$set": {"password_hash": hash_password(payload.new_password)}}
+    )
+    return {"success": True, "message": "Password updated. You'll stay signed in for the rest of this session."}
+
+
 # Re-include router so the new admin routes are mounted (idempotent in FastAPI).
 app.include_router(api_router)
 

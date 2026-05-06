@@ -25,6 +25,9 @@ import AdminDashboard from './pages/admin/Dashboard';
 import RecipesAdmin from './pages/admin/RecipesAdmin';
 import ProductsAdmin from './pages/admin/ProductsAdmin';
 import BlogAdmin from './pages/admin/BlogAdmin';
+import SubscribersAdmin from './pages/admin/SubscribersAdmin';
+import FeedbackAdmin from './pages/admin/FeedbackAdmin';
+import ChangePassword from './pages/admin/ChangePassword';
 
 // Scroll to anchor when location.hash present, top otherwise.
 function ScrollManager() {
@@ -61,6 +64,9 @@ function App() {
             <Route path="/admin/recipes" element={<ProtectedRoute><RecipesAdmin /></ProtectedRoute>} />
             <Route path="/admin/products" element={<ProtectedRoute><ProductsAdmin /></ProtectedRoute>} />
             <Route path="/admin/blog" element={<ProtectedRoute><BlogAdmin /></ProtectedRoute>} />
+            <Route path="/admin/subscribers" element={<ProtectedRoute><SubscribersAdmin /></ProtectedRoute>} />
+            <Route path="/admin/feedback" element={<ProtectedRoute><FeedbackAdmin /></ProtectedRoute>} />
+            <Route path="/admin/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
 
             {/* Internal guidance pages (hidden from public nav) */}
             <Route path="/checklist" element={<LaunchChecklist />} />

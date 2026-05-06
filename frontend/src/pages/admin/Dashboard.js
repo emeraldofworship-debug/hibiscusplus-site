@@ -9,8 +9,8 @@ const STAT_TILES = [
   { key: 'recipes', label: 'Recipes', icon: Leaf, link: '/admin/recipes' },
   { key: 'products', label: 'Products', icon: ShoppingBag, link: '/admin/products' },
   { key: 'blog_posts', label: 'Blog Posts', icon: BookOpen, link: '/admin/blog' },
-  { key: 'newsletter_subscribers', label: 'Subscribers', icon: Mail, link: null },
-  { key: 'feedback', label: 'Feedback', icon: MessageSquare, link: null },
+  { key: 'newsletter_subscribers', label: 'Subscribers', icon: Mail, link: '/admin/subscribers' },
+  { key: 'feedback', label: 'Feedback', icon: MessageSquare, link: '/admin/feedback' },
 ];
 
 export default function AdminDashboard() {

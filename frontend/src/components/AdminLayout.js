@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink } from 'lucide-react';
+import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink, Mail, MessageSquare, KeyRound } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { IMG } from '../assets/images';
 
@@ -9,6 +9,8 @@ const NAV = [
   { to: '/admin/recipes', label: 'Recipes', icon: Leaf },
   { to: '/admin/products', label: 'Products', icon: ShoppingBag },
   { to: '/admin/blog', label: 'Blog', icon: BookOpen },
+  { to: '/admin/subscribers', label: 'Subscribers', icon: Mail },
+  { to: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
 ];
 
 export const AdminLayout = ({ children }) => {
@@ -63,7 +65,14 @@ export const AdminLayout = ({ children }) => {
             <ExternalLink className="h-3.5 w-3.5" /> View Site
           </Link>
           <div className="pt-3 border-t border-[var(--hp-line-soft)]">
-            <p className="text-[11px] text-[var(--hp-muted)] mb-1 break-all">{user?.email}</p>
+            <p className="text-[11px] text-[var(--hp-muted)] mb-2 break-all">{user?.email}</p>
+            <Link
+              to="/admin/change-password"
+              className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[var(--hp-ink-soft)] hover:text-[var(--hp-burgundy)] transition-colors mb-2"
+              data-testid="admin-change-password-link"
+            >
+              <KeyRound className="h-3.5 w-3.5" /> Change Password
+            </Link>
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[var(--hp-burgundy)] hover:text-[var(--hp-wine)] transition-colors"
