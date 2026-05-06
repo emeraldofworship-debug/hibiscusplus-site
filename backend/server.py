@@ -15,6 +15,17 @@ from models.recipe import Recipe, RecipeCreate
 from models.product import Product, ProductCreate
 from models.blog import BlogPost, BlogPostCreate
 from models.newsletter import NewsletterSubscriber, NewsletterSubscribe
+from models.admin import LoginRequest, AdminUserPublic, TokenResponse
+from auth import (
+    hash_password,
+    verify_password,
+    create_access_token,
+    admin_dependency,
+    check_lockout,
+    record_failed_attempt,
+    clear_attempts,
+)
+from fastapi import Depends, Request
 
 
 ROOT_DIR = Path(__file__).parent
@@ -321,8 +332,8 @@ async def get_newsletter_subscribers():
         logger.error(f"Error fetching subscribers: {str(e)}")
         raise HTTPException(status_code=500, detail="Error fetching subscribers")
 
-# Include the router in the main app
-app.include_router(api_router)
+# Include the router in the main app — moved to bottom of file after admin routes are defined
+# (the explicit include below at the end of the file is what mounts everything).
 
 app.add_middleware(
     CORSMiddleware,
@@ -361,4 +372,176 @@ async def submit_feedback(feedback: dict):
 async def get_feedback():
     feedbacks = await db.feedback.find({}, {"_id": 0}).sort("submitted_at", -1).to_list(100)
     return {"count": len(feedbacks), "data": feedbacks}
+
+
+# ============= ADMIN AUTH & CRUD =============
+
+# FastAPI dependency that resolves the current admin from the bearer token.
+get_current_admin = admin_dependency(lambda: db)
+
+
+@app.on_event("startup")
+async def seed_admin_user():
+    """Idempotent admin seed. Creates the admin if missing; updates the password
+    hash if ADMIN_PASSWORD has been changed in .env."""
+    admin_email = os.environ.get("ADMIN_EMAIL")
+    admin_password = os.environ.get("ADMIN_PASSWORD")
+    if not admin_email or not admin_password:
+        logger.warning("ADMIN_EMAIL or ADMIN_PASSWORD missing — skipping admin seed")
+        return
+    admin_email = admin_email.lower().strip()
+    existing = await db.admin_users.find_one({"email": admin_email})
+    if not existing:
+        await db.admin_users.insert_one({
+            "email": admin_email,
+            "password_hash": hash_password(admin_password),
+            "name": "HibiscusPlus Admin",
+            "role": "admin",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+        logger.info(f"Seeded admin user: {admin_email}")
+    elif not verify_password(admin_password, existing["password_hash"]):
+        await db.admin_users.update_one(
+            {"email": admin_email},
+            {"$set": {"password_hash": hash_password(admin_password)}}
+        )
+        logger.info(f"Updated admin password hash for: {admin_email}")
+
+
+@api_router.post("/admin/login", response_model=TokenResponse)
+async def admin_login(payload: LoginRequest, request: Request):
+    """Admin login. Returns JWT bearer token + sanitised user object."""
+    email = payload.email.lower().strip()
+    ip = request.client.host if request.client else "unknown"
+
+    check_lockout(ip, email)
+
+    user = await db.admin_users.find_one({"email": email})
+    if not user or not verify_password(payload.password, user["password_hash"]):
+        record_failed_attempt(ip, email)
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    clear_attempts(ip, email)
+    token = create_access_token(email)
+    user.pop("_id", None)
+    user.pop("password_hash", None)
+    return TokenResponse(access_token=token, user=AdminUserPublic(**user))
+
+
+@api_router.get("/admin/me", response_model=AdminUserPublic)
+async def admin_me(current=Depends(get_current_admin)):
+    return AdminUserPublic(**current)
+
+
+# ----- Admin CRUD: Recipes -----
+
+@api_router.post("/admin/recipes", response_model=dict)
+async def admin_create_recipe(recipe: dict, current=Depends(get_current_admin)):
+    if not recipe.get("id"):
+        recipe["id"] = str(uuid.uuid4())
+    recipe["created_at"] = datetime.now(timezone.utc).isoformat()
+    await db.recipes.insert_one(recipe)
+    recipe.pop("_id", None)
+    return {"success": True, "data": recipe}
+
+
+@api_router.put("/admin/recipes/{recipe_id}", response_model=dict)
+async def admin_update_recipe(recipe_id: str, updates: dict, current=Depends(get_current_admin)):
+    updates.pop("_id", None)
+    updates["updated_at"] = datetime.now(timezone.utc).isoformat()
+    result = await db.recipes.update_one({"id": recipe_id}, {"$set": updates})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    recipe = await db.recipes.find_one({"id": recipe_id}, {"_id": 0})
+    return {"success": True, "data": recipe}
+
+
+@api_router.delete("/admin/recipes/{recipe_id}", response_model=dict)
+async def admin_delete_recipe(recipe_id: str, current=Depends(get_current_admin)):
+    result = await db.recipes.delete_one({"id": recipe_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    return {"success": True, "deleted": recipe_id}
+
+
+# ----- Admin CRUD: Products -----
+
+@api_router.post("/admin/products", response_model=dict)
+async def admin_create_product(product: dict, current=Depends(get_current_admin)):
+    if not product.get("id"):
+        product["id"] = str(uuid.uuid4())
+    product["created_at"] = datetime.now(timezone.utc).isoformat()
+    await db.products.insert_one(product)
+    product.pop("_id", None)
+    return {"success": True, "data": product}
+
+
+@api_router.put("/admin/products/{product_id}", response_model=dict)
+async def admin_update_product(product_id: str, updates: dict, current=Depends(get_current_admin)):
+    updates.pop("_id", None)
+    updates["updated_at"] = datetime.now(timezone.utc).isoformat()
+    result = await db.products.update_one({"id": product_id}, {"$set": updates})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
+    product = await db.products.find_one({"id": product_id}, {"_id": 0})
+    return {"success": True, "data": product}
+
+
+@api_router.delete("/admin/products/{product_id}", response_model=dict)
+async def admin_delete_product(product_id: str, current=Depends(get_current_admin)):
+    result = await db.products.delete_one({"id": product_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return {"success": True, "deleted": product_id}
+
+
+# ----- Admin CRUD: Blog -----
+
+@api_router.post("/admin/blog", response_model=dict)
+async def admin_create_blog(post: dict, current=Depends(get_current_admin)):
+    if not post.get("id"):
+        post["id"] = str(uuid.uuid4())
+    post["created_at"] = datetime.now(timezone.utc).isoformat()
+    if not post.get("date"):
+        post["date"] = post["created_at"]
+    await db.blog_posts.insert_one(post)
+    post.pop("_id", None)
+    return {"success": True, "data": post}
+
+
+@api_router.put("/admin/blog/{post_id}", response_model=dict)
+async def admin_update_blog(post_id: str, updates: dict, current=Depends(get_current_admin)):
+    updates.pop("_id", None)
+    updates["updated_at"] = datetime.now(timezone.utc).isoformat()
+    result = await db.blog_posts.update_one({"id": post_id}, {"$set": updates})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    post = await db.blog_posts.find_one({"id": post_id}, {"_id": 0})
+    if isinstance(post.get("date"), datetime):
+        post["date"] = post["date"].isoformat()
+    return {"success": True, "data": post}
+
+
+@api_router.delete("/admin/blog/{post_id}", response_model=dict)
+async def admin_delete_blog(post_id: str, current=Depends(get_current_admin)):
+    result = await db.blog_posts.delete_one({"id": post_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    return {"success": True, "deleted": post_id}
+
+
+@api_router.get("/admin/stats", response_model=dict)
+async def admin_stats(current=Depends(get_current_admin)):
+    """Quick counts for the admin dashboard."""
+    return {
+        "recipes": await db.recipes.count_documents({}),
+        "products": await db.products.count_documents({}),
+        "blog_posts": await db.blog_posts.count_documents({}),
+        "newsletter_subscribers": await db.newsletter_subscribers.count_documents({"is_active": True}),
+        "feedback": await db.feedback.count_documents({}),
+    }
+
+
+# Re-include router so the new admin routes are mounted (idempotent in FastAPI).
+app.include_router(api_router)
 
