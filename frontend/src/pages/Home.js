@@ -142,7 +142,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#1A0912]/80 via-[#0A0507] to-[#0A0507]" />
         <div className="absolute inset-0 opacity-20">
           <img
-            src="https://images.unsplash.com/photo-1759662510393-bb58988ebadb?w=1600&q=80"
+            src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/cr446avj_Untitled%20%282%29.png"
             alt=""
             className="w-full h-full object-cover"
           />
@@ -293,8 +293,8 @@ export default function Home() {
             className="relative aspect-[4/5] overflow-hidden"
           >
             <img
-              src="https://images.unsplash.com/photo-1761963139989-dbfa18ffb470?w=800&q=80"
-              alt="Hibiscus flower"
+              src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/98wcn0lj_hibiscusplus_tea.jpg"
+              alt="HibiscusPlus tea ingredients — hibiscus flowers, cinnamon, cloves, star anise, beetroot, teapot"
               className="w-full h-full object-cover"
               loading="lazy"
             />
@@ -420,31 +420,45 @@ export default function Home() {
             </motion.div>
 
             {/* Fresh Juices */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 flex flex-col justify-between" data-testid="fresh-juices">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-3">Made to Order</p>
-                <h3 className="text-2xl font-light mb-2">Freshly Juiced Fruits</h3>
-                <p className="text-xs text-[#8A7670] italic mb-6">"Because your body deserves better than a vending machine."</p>
-                <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-4">
-                  Cold-pressed. Custom mixes. Delivered collectively on a specific day each week — announced every Sunday on our socials.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {['Hibiscus', 'Pineapple', 'Watermelon', 'Mango', 'Carrots', 'Plum', 'Ginger', 'Sweet Melon'].map(fruit => (
-                    <span key={fruit} className="text-xs px-3 py-1.5 border border-[#F7F0E3]/10 text-[#8A7670]">{fruit}</span>
-                  ))}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-0 overflow-hidden flex flex-col" data-testid="fresh-juices">
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <img
+                  src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/rlmxmcsb_image%281%29.png"
+                  alt="HibiscusPlus branded fruit juice drinks — three glasses with fresh fruits"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  data-testid="juices-hero-img"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0507] via-[#0A0507]/40 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E]">Made to Order</p>
+                  <h3 className="text-xl font-light">Freshly Juiced Fruits</h3>
                 </div>
-                <p className="text-xs text-[#CDBAB5] mb-1">Seasonal availability &middot; Mix to your taste &middot; Manchester & Bolton</p>
               </div>
-              <div className="pt-6 border-t border-[#F7F0E3]/5 mt-4">
-                <p className="text-xs text-[#8A7670] mb-3">Follow for weekly delivery announcements</p>
-                <div className="flex gap-4">
-                  <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
-                    <Instagram className="h-4 w-4" /> @hibiscusplus_ltd
-                  </a>
-                  <a href="https://www.tiktok.com/@hibiscusplus" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
-                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                    @hibiscusplus
-                  </a>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <p className="text-xs text-[#8A7670] italic mb-4">"Because your body deserves better than a vending machine."</p>
+                  <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-4">
+                    Cold-pressed. Custom mixes. Delivered collectively on a specific day each week — announced every Sunday on our socials.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {['Hibiscus', 'Pineapple', 'Watermelon', 'Mango', 'Carrots', 'Plum', 'Ginger', 'Sweet Melon'].map(fruit => (
+                      <span key={fruit} className="text-xs px-2 py-1 border border-[#F7F0E3]/10 text-[#8A7670]">{fruit}</span>
+                    ))}
+                  </div>
+                  <p className="text-xs text-[#CDBAB5] mb-1">Seasonal availability &middot; Mix to your taste &middot; Manchester & Bolton</p>
+                </div>
+                <div className="pt-4 border-t border-[#F7F0E3]/5 mt-4">
+                  <p className="text-xs text-[#8A7670] mb-3">Follow for weekly delivery announcements</p>
+                  <div className="flex gap-4">
+                    <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
+                      <Instagram className="h-4 w-4" /> @hibiscusplus_ltd
+                    </a>
+                    <a href="https://www.tiktok.com/@hibiscusplus" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
+                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                      @hibiscusplus
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -528,6 +542,34 @@ export default function Home() {
             <motion.p variants={fadeUp} className="text-[#CDBAB5] max-w-xl font-light">
               Research-backed recipes crafted for maximum health benefit. Each blend tells a story of flavour and function.
             </motion.p>
+          </motion.div>
+
+          {/* Featured Drink Visual */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="relative aspect-[4/3] overflow-hidden border border-[#F7F0E3]/10">
+              <img
+                src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/ui1jq7oq_Untitled%20%281%29.png"
+                alt="Hibiscus drink being poured into glass with ice, lime, and mint"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0507]/60 to-transparent" />
+              <div className="absolute bottom-4 left-4">
+                <p className="text-sm text-[#F7F0E3] font-light italic">"Every pour is a ritual."</p>
+              </div>
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden border border-[#F7F0E3]/10">
+              <img
+                src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/mr031toz_image%20%282%29%282%29.png"
+                alt="HibiscusPlus branded tropical fruit juice with watermelon and pineapple"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0507]/60 to-transparent" />
+              <div className="absolute bottom-4 left-4">
+                <p className="text-sm text-[#F7F0E3] font-light italic">"Sunshine in a glass."</p>
+              </div>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
