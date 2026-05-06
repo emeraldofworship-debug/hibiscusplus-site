@@ -159,7 +159,7 @@ class TestBlogAPI:
 
 
 class TestNewsletterAPI:
-    """Tests for /api/newsletter endpoint"""
+    """Tests for /api/newsletter endpoint - includes breakfast signup with interest field"""
     
     def test_newsletter_subscribe(self):
         """Test newsletter subscription"""
@@ -174,6 +174,21 @@ class TestNewsletterAPI:
         
         data = response.json()
         assert data["success"] == True
+    
+    def test_breakfast_signup_with_interest_field(self):
+        """Test Nigerian Breakfast signup with interest field"""
+        import uuid
+        test_email = f"test_breakfast_{uuid.uuid4().hex[:8]}@example.com"
+        
+        response = requests.post(
+            f"{BASE_URL}/api/newsletter/subscribe",
+            json={"email": test_email, "interest": "nigerian_breakfast"}
+        )
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert data["success"] == True
+        assert "message" in data
 
 
 class TestFeedbackAPI:

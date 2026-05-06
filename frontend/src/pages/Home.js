@@ -55,6 +55,7 @@ const products = [
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
   const [email, setEmail] = useState('');
+  const [breakfastEmail, setBreakfastEmail] = useState('');
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -80,6 +81,17 @@ export default function Home() {
     }
   };
 
+  const handleBreakfastSignup = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${API_URL}/api/newsletter/subscribe`, { email: breakfastEmail, interest: 'nigerian_breakfast' });
+      toast.success('You\'re on the list! We\'ll notify you about our Nigerian Breakfast offerings.');
+      setBreakfastEmail('');
+    } catch (err) {
+      toast.error('Something went wrong. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0507] text-[#F7F0E3]">
       <Toaster position="top-center" theme="dark" />
@@ -94,9 +106,9 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-8">
             {[
               { label: 'Shop', href: '#shop' },
+              { label: 'Markets', href: '#markets' },
               { label: 'Recipes', href: '#recipes' },
               { label: 'About', href: '#about' },
-              { label: 'Blog', href: '#blog' },
               { label: 'Events', href: '/feedback' }
             ].map(link => (
               <a
@@ -292,6 +304,168 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Market Stalls & Street Food Section */}
+      <section id="markets" className="py-24 md:py-32 px-6 md:px-12 border-t border-[#F7F0E3]/5" data-testid="markets-section">
+        <div className="max-w-7xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="mb-16">
+            <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-[#C9A96E] mb-4">
+              Weekly Market Stalls
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-light mb-4">
+              Street Food. <span className="italic">Soul Food.</span>
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-[#CDBAB5] max-w-2xl font-light leading-relaxed">
+              Find us at The Makers Market across Manchester and Bolton every weekend. Freshly made Zobo, authentic Nigerian street food, and premium juices — crafted live, served with love.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+            {/* Market Locations */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10" data-testid="market-locations">
+              <h3 className="text-2xl font-light mb-6">Where to Find Us</h3>
+              <div className="space-y-6">
+                <div className="border-l-2 border-[#C9A96E] pl-5">
+                  <p className="text-sm uppercase tracking-[0.15em] text-[#C9A96E] mb-1">Northern Quarter Sunday Market</p>
+                  <p className="text-[#CDBAB5] text-sm font-light">Oak Street, Manchester M4 5JD</p>
+                  <p className="text-[#8A7670] text-xs mt-1">Every 2nd Sunday of the month &middot; 11:00 AM - 5:00 PM</p>
+                </div>
+                <div className="border-l-2 border-[#C9A96E] pl-5">
+                  <p className="text-sm uppercase tracking-[0.15em] text-[#C9A96E] mb-1">Bolton Makers Market</p>
+                  <p className="text-[#CDBAB5] text-sm font-light">Newport Street, Bolton</p>
+                  <p className="text-[#8A7670] text-xs mt-1">Check @hibiscusplus_ltd for confirmed dates</p>
+                </div>
+                <div className="border-l-2 border-[#C9A96E]/50 pl-5">
+                  <p className="text-sm uppercase tracking-[0.15em] text-[#CDBAB5] mb-1">Additional Locations</p>
+                  <p className="text-[#8A7670] text-sm font-light">Levenshulme, Quayside Media City, Ancoats — schedule varies</p>
+                  <p className="text-[#8A7670] text-xs mt-1">Saturdays & Sundays &middot; Follow us for weekly announcements</p>
+                </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-[#F7F0E3]/10">
+                <p className="text-xs text-[#8A7670] mb-2">Powered by</p>
+                <a href="https://www.themakersmarket.co.uk" target="_blank" rel="noopener noreferrer" className="text-sm text-[#C9A96E] hover:text-[#D4B87A] transition-colors">
+                  The Makers Market &rarr;
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Street Food Menu */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10" data-testid="street-food-menu">
+              <h3 className="text-2xl font-light mb-6">Fresh Street Food Menu</h3>
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {[
+                  { name: 'Zobo', desc: 'Traditional hibiscus drink' },
+                  { name: 'Koko', desc: 'Spiced millet porridge' },
+                  { name: 'Puff Puff', desc: 'Golden fried dough balls' },
+                  { name: 'Samosa', desc: 'Spiced filled pastry' },
+                  { name: 'Akara', desc: 'Black-eyed bean fritters' },
+                  { name: 'Spring Rolls', desc: 'Crispy vegetable rolls' }
+                ].map(item => (
+                  <div key={item.name} className="p-3 border border-[#F7F0E3]/5 bg-[#1A0912]/50">
+                    <p className="text-[#F7F0E3] font-light">{item.name}</p>
+                    <p className="text-xs text-[#8A7670]">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-4 bg-[#C9A96E]/5 border border-[#C9A96E]/20">
+                <p className="text-sm text-[#C9A96E] font-medium mb-1">Premium Nigerian Breakfast</p>
+                <p className="text-xs text-[#CDBAB5] font-light">A regular offering at our market stalls. Authentic flavours, premium ingredients, beautifully presented.</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Fresh Juices */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10 mb-16" data-testid="fresh-juices">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-3">Made to Order</p>
+                <h3 className="text-2xl font-light mb-4">Freshly Juiced Fruits</h3>
+                <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-4">
+                  Premium cold-pressed juices available on demand. Orders are collected and delivered on a specific day each week — announced every Sunday on our social media.
+                </p>
+                <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-6">
+                  Mix and match according to your preference. Seasonal availability applies.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Hibiscus', 'Pineapple', 'Watermelon', 'Mango', 'Carrots', 'Plum', 'Ginger', 'Sweet Melon'].map(fruit => (
+                    <span key={fruit} className="text-xs px-3 py-1.5 border border-[#F7F0E3]/10 text-[#8A7670]">{fruit}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-xs uppercase tracking-[0.15em] text-[#8A7670] mb-4">Follow for weekly announcements</p>
+                <div className="flex flex-col gap-3 items-center md:items-end">
+                  <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
+                    <Instagram className="h-4 w-4" /> @hibiscusplus_ltd
+                  </a>
+                  <a href="https://www.tiktok.com/@hibiscusplus" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    @hibiscusplus
+                  </a>
+                </div>
+                <p className="text-xs text-[#8A7670] mt-4">Manchester & Bolton delivery &middot; Custom mixes available</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Nigerian Breakfast Signup */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#C9A96E]/20 p-8 md:p-12 bg-[#1A0912]" data-testid="breakfast-signup">
+            <div className="max-w-2xl mx-auto text-center">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#C9A96E] mb-4">Register Your Interest</p>
+              <h3 className="text-3xl font-light mb-4">Premium Nigerian Breakfast</h3>
+              <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-8">
+                Authentic Nigerian breakfast served fresh at our market stalls. Interested in a dedicated breakfast experience or delivery service? Sign up to be the first to know.
+              </p>
+              <form onSubmit={handleBreakfastSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <Input
+                  type="email"
+                  placeholder="Your email address"
+                  value={breakfastEmail}
+                  onChange={(e) => setBreakfastEmail(e.target.value)}
+                  required
+                  className="bg-transparent border-[#F7F0E3]/20 text-[#F7F0E3] placeholder:text-[#8A7670] rounded-none flex-1 py-6 focus:border-[#C9A96E]"
+                  data-testid="breakfast-email"
+                />
+                <Button
+                  type="submit"
+                  className="bg-[#C9A96E] text-[#0A0507] hover:bg-[#D4B87A] rounded-none text-xs uppercase tracking-[0.15em] px-8 py-6"
+                  data-testid="breakfast-signup-btn"
+                >
+                  I'm Interested
+                </Button>
+              </form>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Christmas Market Teaser */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-gradient-to-b from-[#1A0912] to-[#0A0507] border-t border-[#C9A96E]/10" data-testid="christmas-teaser">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-[#C9A96E] mb-4">
+              Coming This Winter
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-light mb-4">
+              Manchester <span className="italic">Christmas Markets</span> 2025
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-[#CDBAB5] mb-3 font-light max-w-xl mx-auto">
+              We're working towards showcasing HibiscusPlus at the iconic Manchester Christmas Markets this November. Hot Zobo, spiced teas, and festive Nigerian street food under the Christmas lights.
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-xs text-[#8A7670] mb-8">
+              7th November – 22nd December 2025 &middot; Albert Square, Cathedral Gardens & more
+            </motion.p>
+            <motion.div variants={fadeUp}>
+              <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="border-[#C9A96E]/40 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-none text-xs uppercase tracking-[0.15em] px-8 py-5" data-testid="christmas-follow-btn">
+                  Follow for Updates
+                  <ArrowRight className="ml-2 h-3.5 w-3.5" />
+                </Button>
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Recipes Section */}
       <section id="recipes" className="py-24 md:py-32 px-6 md:px-12 bg-[#1A0912]/30" data-testid="recipes-section">
         <div className="max-w-7xl mx-auto">
@@ -449,6 +623,10 @@ export default function Home() {
                   <Instagram className="h-3.5 w-3.5 text-[#8A7670]" />
                   <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A96E] transition-colors">@hibiscusplus_ltd</a>
                 </li>
+                <li className="flex items-center gap-2">
+                  <svg className="h-3.5 w-3.5 text-[#8A7670]" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                  <a href="https://www.tiktok.com/@hibiscusplus" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A96E] transition-colors">@hibiscusplus</a>
+                </li>
                 <li className="flex items-start gap-2">
                   <MapPin className="h-3.5 w-3.5 text-[#8A7670] mt-0.5" />
                   <span>Manchester, UK</span>
@@ -461,10 +639,10 @@ export default function Home() {
               <h4 className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-6">Navigate</h4>
               <ul className="space-y-3 text-sm text-[#CDBAB5]">
                 <li><a href="#shop" className="hover:text-[#C9A96E] transition-colors">Shop</a></li>
+                <li><a href="#markets" className="hover:text-[#C9A96E] transition-colors">Market Stalls</a></li>
                 <li><a href="#recipes" className="hover:text-[#C9A96E] transition-colors">Recipes</a></li>
                 <li><a href="#about" className="hover:text-[#C9A96E] transition-colors">About</a></li>
                 <li><Link to="/feedback" className="hover:text-[#C9A96E] transition-colors">Events & Feedback</Link></li>
-                <li><Link to="/brand-assets" className="hover:text-[#C9A96E] transition-colors">Brand Assets</Link></li>
               </ul>
             </div>
           </div>
