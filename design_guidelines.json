@@ -1,0 +1,154 @@
+{
+  "theme_preference": "dark",
+  "typography": {
+    "headings": {
+      "fontFamily": "Cormorant Garamond, serif",
+      "weights": ["300", "400", "600"],
+      "styles": "Elegant, wide letter-spacing (tracking-wide to tracking-widest) for large display text, all-caps or title case for luxury editorial feel. NEVER use generic sans-serif for headings."
+    },
+    "body": {
+      "fontFamily": "Manrope, sans-serif",
+      "weights": ["300", "400", "500"],
+      "styles": "Clean, highly legible, modern geometric sans to counterbalance the ornate serif headings. Use leading-relaxed for body copy."
+    },
+    "labels_and_nav": {
+      "fontFamily": "Manrope, sans-serif",
+      "styles": "Uppercase, tracking-[0.2em], text-xs or text-sm for overlines, navigation links, and small CTA text."
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#0A0507",
+      "secondary": "#1A0912",
+      "tertiary": "#2E0E1A",
+      "description": "Very dark, near-black with deep burgundy undertones. No pure #000000."
+    },
+    "brand": {
+      "crimson": "#C41E3A",
+      "burgundy": "#6B1D3A",
+      "gold": "#C9A96E",
+      "cream": "#F7F0E3"
+    },
+    "text": {
+      "primary": "#F7F0E3",
+      "secondary": "#CDBAB5",
+      "muted": "#8A7670",
+      "accent": "#C9A96E"
+    },
+    "borders": {
+      "subtle": "rgba(247, 240, 227, 0.1)",
+      "accent": "rgba(201, 169, 110, 0.3)"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Use high-end 'Crystal Glass' effect for sticky navs and floating cards: bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)].",
+    "textures": "Incorporate subtle grain/noise overlays over solid dark backgrounds to create physical depth (like luxury velvet or textured paper).",
+    "shadows": "Deep ambient drop-shadows with slight crimson/gold tint (e.g., shadow-[0_20px_40px_-15px_rgba(107,29,58,0.5)]).",
+    "borders": "1px solid borders in gold/10 or white/10 for grid items and bento boxes. NO rounded-3xl or soft bubbly radii; stick to sharp edges (rounded-none) or very subtle radii (rounded-sm/md) for an architectural, premium feel."
+  },
+  "layouts": {
+    "spacing": "Exaggerated spacing. Use p-12, p-16, p-24, py-32 to create a museum-like exhibition feel. The products and text need massive breathing room.",
+    "grids": "Use the 'Tetris' Bento grid (Mode A) for the Shop/Product showcases and Recipes. Overlapping elements, asymmetrical compositions (e.g., 8-col hero with 4-col overlapping card).",
+    "hero": "Full-bleed dark moody imagery or immersive deep-color sections. Large serif typography, generous negative space.",
+    "navigation": "Minimalist header. Hide internal pages completely from nav. Show: Shop, Recipes, Blog, About, Contact, Feedback. No clutter.",
+    "alignment": "Left-align dense text. Headings can be centered if paired with centered hero layouts, otherwise optical left alignment."
+  },
+  "motion": {
+    "page_transitions": "Slow, cinematic fades. 0.8s ease-in-out.",
+    "hover_states": "Images scale slowly (scale-105 duration-700 ease-out). Text buttons get a subtle gold underline or text color shift. NO frantic or bouncy animations.",
+    "scroll_effects": "Use Framer Motion or React Spring Parallax for subtle 2.5D parallax on hero images and large product shots. Fade-up (y: 20, opacity: 0) with a long duration (0.8s) for text entrance."
+  },
+  "accessibility": {
+    "contrast": "Ensure text contrast meets WCAG AA minimums. Cream (#F7F0E3) on Dark Burgundy (#0A0507) is highly legible. Gold (#C9A96E) must be used carefully against dark backgrounds.",
+    "focus": "Use a subtle gold focus ring (focus:ring-1 focus:ring-[#C9A96E] focus:outline-none) for interactive elements.",
+    "reduced_motion": "Wrap heavy animations with prefers-reduced-motion media query respect.",
+    "testing": "All interactive elements MUST include data-testid (e.g., data-testid='shop-now-btn')."
+  },
+  "pages_and_components": {
+    "Home": "Immersive hero section with majestic typography. Featured product trio (Metabo Ignite, Bloom & Flush, Glucose Guard) in an asymmetrical bento grid. Brand story teaser section.",
+    "About": "Editorial layout similar to Vogue/Kinfolk. Large high-res imagery paired with deep storytelling about the Manchester origins, artisanal quality, and health science.",
+    "Shop": "3 premium products displayed like museum pieces. Large imagery, rich descriptions. CTAs must clearly link out to Shopify.",
+    "Recipes": "Masonry/Asymmetrical grid showcasing 12 research-backed tea recipes. Focus on high-end culinary photography style.",
+    "Blog": "Clean, text-focused editorial layout with wide left margins, drop caps, and serif typography.",
+    "Feedback_Event": "Minimalist, high-end dark card layout containing the QR code for tea tasting events and a refined feedback form."
+  },
+  "images": {
+    "hero_mood": [
+      {
+        "url": "https://images.unsplash.com/photo-1759662510393-bb58988ebadb?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A hand reaches towards a dark ceramic bowl of tea.",
+        "category": "Hero Background / Mood"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1548612437-37b077e9caa0?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Black mug and saucer on top of white textile, moody",
+        "category": "Hero / About"
+      }
+    ],
+    "ingredients": [
+      {
+        "url": "https://images.unsplash.com/photo-1761963139989-dbfa18ffb470?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A vibrant pink hibiscus flower with water droplets.",
+        "category": "Ingredients / About Science"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768032945929-501fd73089ac?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A vibrant pink hibiscus flower with dark green leaves.",
+        "category": "Ingredients Showcase"
+      }
+    ],
+    "lifestyle_and_events": [
+      {
+        "url": "https://images.pexels.com/photos/3765036/pexels-photo-3765036.jpeg",
+        "description": "Woman relaxing at indoor poolside, luxury wellness.",
+        "category": "Wellness Lifestyle"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1766832255363-c9f060ade8b0?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Elegant dining tables set in a cozy restaurant interior.",
+        "category": "Event / Feedback Page"
+      }
+    ],
+    "products_mockups": [
+      {
+        "url": "https://images.unsplash.com/photo-1647774325483-ab01945df818?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A dark elegant box sitting on a table, acts as premium tea packaging.",
+        "category": "Shop Product"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602037299897-7e9f4061c1d5?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Black and gold labeled bottle/container.",
+        "category": "Shop Product"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "You are building a high-end luxury e-commerce/marketing hybrid app. Treat every pixel as premium real estate.",
+    "Use standard HTML/Tailwind for main page structures and use Shadcn UI exclusively for complex interactive components (forms, select, dropdowns).",
+    "Install and use `lucide-react` for minimalist elegant icons.",
+    "Install and use `Cormorant Garamond` and `Manrope` from Google Fonts via standard import in index.css.",
+    "Do NOT use pure #000000 or #FFFFFF. Use the defined dark burgundy/crimson tinted blacks and cream whites.",
+    "Apply Framer Motion (framer-motion) for slow, cinematic 0.8s entrance animations. Do NOT make animations bouncy or fast.",
+    "Implement the bento grid (grid-cols-1 md:grid-cols-12) for the Shop section to display the 3 teas asymmetrically (e.g., Hero product spans 8 cols, others span 4).",
+    "Ensure all interactive components have proper data-testid attributes for testing.",
+    "Remove/hide any internal navigation links (PreLaunchChecklist, etc.) from the public router or header.",
+    "Do NOT create `.tsx` files if the project uses `.js`/`.jsx`. Check existing file structures first.",
+    "Use sonner for any toast notifications (e.g., successful newsletter signup)."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: `transition: all`. This results in breaking transforms.",
+    "You MUST NOT center align the app container, ie do not add `.App { text-align: center; }` in the css file.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})"
+  ]
+}
