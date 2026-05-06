@@ -10,9 +10,16 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - **Domain:** hibiscusplus.co.uk (registered via IONOS)
 - **Shopify:** https://admin.shopify.com/store/hibiscusplus-limited
 - **Instagram:** @hibiscusplus_ltd
+- **TikTok:** @hibiscusplus
 - **Email:** emeraldofworship@hibiscusplus.co.uk
 - **Phone:** 07508597742
 - **Tagline:** Boldly Spiced. Beautifully Balanced.
+
+## Hosting & Deployment
+- **Platform:** Vercel (connected via GitHub)
+- **vercel.json** at root: build command `cd frontend && yarn install && yarn build`, output `frontend/build`
+- **Fix for blank Vercel page:** Go to Vercel Dashboard → Project Settings → Root Directory → set `frontend`, Framework Preset → Create React App
+- **Backend:** Currently on Emergent preview. For production, deploy to Railway/Render/Vercel Serverless
 
 ## Design System
 - **Theme:** Dark Moody Luxury

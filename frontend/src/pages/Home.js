@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png";
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/eei6kk0o_HibiscuPlus_20260227_093727_0000%20%283%29%20%281%29.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -162,8 +162,7 @@ export default function Home() {
             <span className="italic text-[#C9A96E]">Beautifully Balanced.</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base md:text-lg text-[#CDBAB5] max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            Hand-crafted hibiscus tea blends, formulated with precision for those who demand
-            excellence in every cup. From Manchester, for the world.
+            Hand-crafted hibiscus tea blends and authentic Nigerian street food, formulated with precision for those who know life's too short for average flavours. From Manchester, for the world.
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#shop">
@@ -272,10 +271,10 @@ export default function Home() {
               <span className="italic">Refined for Modern Wellness.</span>
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#CDBAB5] leading-relaxed mb-6 font-light">
-              HibiscusPlus draws from the rich tradition of Nigerian Zobo — a centuries-old hibiscus preparation revered for its health properties. We've taken this heritage and elevated it with modern nutritional science.
+              HibiscusPlus started with a simple truth: the best things come from home. Nigerian Zobo — a centuries-old hibiscus preparation — has been nourishing families for generations. We took grandma's recipe and gave it a lab coat.
             </motion.p>
             <motion.p variants={fadeUp} className="text-[#CDBAB5] leading-relaxed mb-8 font-light">
-              Every blend is meticulously formulated in Manchester, combining premium botanicals with research-backed functional ingredients. The result: teas that don't just taste extraordinary — they deliver measurable wellness benefits.
+              Every blend is meticulously formulated in Manchester, combining premium botanicals with peer-reviewed nutritional science. The result? Teas that taste like a warm hug but work like a personal trainer. No gimmicks, just functional ingredients doing their thing.
             </motion.p>
             <motion.div variants={fadeUp}>
               <Link to="/feedback">
@@ -315,85 +314,130 @@ export default function Home() {
               Street Food. <span className="italic">Soul Food.</span>
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#CDBAB5] max-w-2xl font-light leading-relaxed">
-              Find us at The Makers Market across Manchester and Bolton every weekend. Freshly made Zobo, authentic Nigerian street food, and premium juices — crafted live, served with love.
+              Every weekend, we set up at The Makers Market and serve food that makes strangers become friends. If the aroma doesn't pull you in, the queue will.
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+          {/* Hero food image */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-12 relative overflow-hidden aspect-[21/9] border border-[#F7F0E3]/10">
+            <img
+              src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/13mt3q4c_007.jpg"
+              alt="HibiscusPlus street food platter — puff puff, samosa, akara, spring rolls with dipping sauces"
+              className="w-full h-full object-cover"
+              loading="lazy"
+              data-testid="market-hero-img"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0507]/70 via-transparent to-[#0A0507]/50" />
+            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-2">The Full Spread</p>
+              <p className="text-xl md:text-2xl font-light">Puff Puff. Akara. Samosa. Spring Rolls.</p>
+              <p className="text-sm text-[#CDBAB5] font-light italic mt-1">"One bite and you'll rearrange your weekend plans."</p>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
             {/* Market Locations */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10" data-testid="market-locations">
-              <h3 className="text-2xl font-light mb-6">Where to Find Us</h3>
-              <div className="space-y-6">
-                <div className="border-l-2 border-[#C9A96E] pl-5">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8" data-testid="market-locations">
+              <h3 className="text-xl font-light mb-6">Where to Find Us</h3>
+              <div className="space-y-5">
+                <div className="border-l-2 border-[#C9A96E] pl-4">
                   <p className="text-sm uppercase tracking-[0.15em] text-[#C9A96E] mb-1">Northern Quarter Sunday Market</p>
                   <p className="text-[#CDBAB5] text-sm font-light">Oak Street, Manchester M4 5JD</p>
-                  <p className="text-[#8A7670] text-xs mt-1">Every 2nd Sunday of the month &middot; 11:00 AM - 5:00 PM</p>
+                  <p className="text-[#8A7670] text-xs mt-1">Every 2nd Sunday &middot; 11:00 AM - 5:00 PM</p>
                 </div>
-                <div className="border-l-2 border-[#C9A96E] pl-5">
+                <div className="border-l-2 border-[#C9A96E] pl-4">
                   <p className="text-sm uppercase tracking-[0.15em] text-[#C9A96E] mb-1">Bolton Makers Market</p>
                   <p className="text-[#CDBAB5] text-sm font-light">Newport Street, Bolton</p>
-                  <p className="text-[#8A7670] text-xs mt-1">Check @hibiscusplus_ltd for confirmed dates</p>
+                  <p className="text-[#8A7670] text-xs mt-1">Check socials for confirmed dates</p>
                 </div>
-                <div className="border-l-2 border-[#C9A96E]/50 pl-5">
-                  <p className="text-sm uppercase tracking-[0.15em] text-[#CDBAB5] mb-1">Additional Locations</p>
-                  <p className="text-[#8A7670] text-sm font-light">Levenshulme, Quayside Media City, Ancoats — schedule varies</p>
-                  <p className="text-[#8A7670] text-xs mt-1">Saturdays & Sundays &middot; Follow us for weekly announcements</p>
+                <div className="border-l-2 border-[#C9A96E]/40 pl-4">
+                  <p className="text-sm text-[#CDBAB5] mb-1">More Locations</p>
+                  <p className="text-[#8A7670] text-xs">Levenshulme &middot; Quayside Media City &middot; Ancoats</p>
                 </div>
               </div>
-              <div className="mt-6 pt-6 border-t border-[#F7F0E3]/10">
-                <p className="text-xs text-[#8A7670] mb-2">Powered by</p>
-                <a href="https://www.themakersmarket.co.uk" target="_blank" rel="noopener noreferrer" className="text-sm text-[#C9A96E] hover:text-[#D4B87A] transition-colors">
+              <div className="mt-6 pt-5 border-t border-[#F7F0E3]/5">
+                <a href="https://www.themakersmarket.co.uk" target="_blank" rel="noopener noreferrer" className="text-xs text-[#C9A96E] hover:text-[#D4B87A] transition-colors">
                   The Makers Market &rarr;
                 </a>
               </div>
             </motion.div>
 
+            {/* Steaming Puff Puff + Zobo image */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="relative overflow-hidden border border-[#F7F0E3]/10" data-testid="puffpuff-image">
+              <img
+                src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/pb4mbq6e_20260305_153012%20%281%29.png"
+                alt="Freshly made Puff Puff with steaming Zobo drink"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0507]/80 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-sm text-[#F7F0E3] font-light">Puff Puff & Hot Zobo</p>
+                <p className="text-xs text-[#8A7670] italic">"The only valid excuse for waking up early on a Sunday."</p>
+              </div>
+            </motion.div>
+
             {/* Street Food Menu */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10" data-testid="street-food-menu">
-              <h3 className="text-2xl font-light mb-6">Fresh Street Food Menu</h3>
-              <div className="grid grid-cols-2 gap-4 mb-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8" data-testid="street-food-menu">
+              <h3 className="text-xl font-light mb-2">The Menu</h3>
+              <p className="text-xs text-[#8A7670] italic mb-6">"We don't do boring. Every item is a conversation starter."</p>
+              <div className="space-y-3 mb-6">
                 {[
-                  { name: 'Zobo', desc: 'Traditional hibiscus drink' },
-                  { name: 'Koko', desc: 'Spiced millet porridge' },
-                  { name: 'Puff Puff', desc: 'Golden fried dough balls' },
-                  { name: 'Samosa', desc: 'Spiced filled pastry' },
-                  { name: 'Akara', desc: 'Black-eyed bean fritters' },
-                  { name: 'Spring Rolls', desc: 'Crispy vegetable rolls' }
+                  { name: 'Zobo', desc: 'Our signature hibiscus drink — served hot or cold', fire: true },
+                  { name: 'Koko', desc: 'Spiced millet porridge that hugs your soul' },
+                  { name: 'Puff Puff', desc: 'Golden clouds of fried perfection' },
+                  { name: 'Samosa', desc: 'Crispy, spiced, dangerously moreish' },
+                  { name: 'Akara', desc: 'Black-eyed bean fritters, grandma-approved' },
+                  { name: 'Spring Rolls', desc: 'Crunchy, fresh, and gone in seconds' }
                 ].map(item => (
-                  <div key={item.name} className="p-3 border border-[#F7F0E3]/5 bg-[#1A0912]/50">
-                    <p className="text-[#F7F0E3] font-light">{item.name}</p>
-                    <p className="text-xs text-[#8A7670]">{item.desc}</p>
+                  <div key={item.name} className="flex justify-between items-baseline border-b border-[#F7F0E3]/5 pb-2">
+                    <span className="text-[#F7F0E3] font-light text-sm">{item.name}</span>
+                    <span className="text-xs text-[#8A7670] text-right max-w-[60%]">{item.desc}</span>
                   </div>
                 ))}
-              </div>
-              <div className="p-4 bg-[#C9A96E]/5 border border-[#C9A96E]/20">
-                <p className="text-sm text-[#C9A96E] font-medium mb-1">Premium Nigerian Breakfast</p>
-                <p className="text-xs text-[#CDBAB5] font-light">A regular offering at our market stalls. Authentic flavours, premium ingredients, beautifully presented.</p>
               </div>
             </motion.div>
           </div>
 
-          {/* Fresh Juices */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 md:p-10 mb-16" data-testid="fresh-juices">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          {/* Nigerian Breakfast + Juices Row */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+            {/* Nigerian Breakfast with real image */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="relative overflow-hidden border border-[#F7F0E3]/10" data-testid="breakfast-image">
+              <div className="aspect-[4/3]">
+                <img
+                  src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/hud47goh_008.jpg"
+                  alt="Premium Nigerian Breakfast — Koko, Akara with Ankara setting"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0507]/80 via-[#0A0507]/30 to-transparent" />
+              </div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-2">Available at Our Stalls</p>
+                <h3 className="text-2xl font-light mb-2">Premium Nigerian Breakfast</h3>
+                <p className="text-sm text-[#CDBAB5] font-light italic">"Breakfast so good, lunch gets jealous."</p>
+              </div>
+            </motion.div>
+
+            {/* Fresh Juices */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#F7F0E3]/10 p-8 flex flex-col justify-between" data-testid="fresh-juices">
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-[#C9A96E] mb-3">Made to Order</p>
-                <h3 className="text-2xl font-light mb-4">Freshly Juiced Fruits</h3>
+                <h3 className="text-2xl font-light mb-2">Freshly Juiced Fruits</h3>
+                <p className="text-xs text-[#8A7670] italic mb-6">"Because your body deserves better than a vending machine."</p>
                 <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-4">
-                  Premium cold-pressed juices available on demand. Orders are collected and delivered on a specific day each week — announced every Sunday on our social media.
+                  Cold-pressed. Custom mixes. Delivered collectively on a specific day each week — announced every Sunday on our socials.
                 </p>
-                <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-6">
-                  Mix and match according to your preference. Seasonal availability applies.
-                </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {['Hibiscus', 'Pineapple', 'Watermelon', 'Mango', 'Carrots', 'Plum', 'Ginger', 'Sweet Melon'].map(fruit => (
                     <span key={fruit} className="text-xs px-3 py-1.5 border border-[#F7F0E3]/10 text-[#8A7670]">{fruit}</span>
                   ))}
                 </div>
+                <p className="text-xs text-[#CDBAB5] mb-1">Seasonal availability &middot; Mix to your taste &middot; Manchester & Bolton</p>
               </div>
-              <div className="text-center md:text-right">
-                <p className="text-xs uppercase tracking-[0.15em] text-[#8A7670] mb-4">Follow for weekly announcements</p>
-                <div className="flex flex-col gap-3 items-center md:items-end">
+              <div className="pt-6 border-t border-[#F7F0E3]/5 mt-4">
+                <p className="text-xs text-[#8A7670] mb-3">Follow for weekly delivery announcements</p>
+                <div className="flex gap-4">
                   <a href="https://www.instagram.com/hibiscusplus_ltd" target="_blank" rel="noopener noreferrer" className="text-sm text-[#CDBAB5] hover:text-[#C9A96E] transition-colors flex items-center gap-2">
                     <Instagram className="h-4 w-4" /> @hibiscusplus_ltd
                   </a>
@@ -402,18 +446,17 @@ export default function Home() {
                     @hibiscusplus
                   </a>
                 </div>
-                <p className="text-xs text-[#8A7670] mt-4">Manchester & Bolton delivery &middot; Custom mixes available</p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Nigerian Breakfast Signup */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border border-[#C9A96E]/20 p-8 md:p-12 bg-[#1A0912]" data-testid="breakfast-signup">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-xs uppercase tracking-[0.3em] text-[#C9A96E] mb-4">Register Your Interest</p>
-              <h3 className="text-3xl font-light mb-4">Premium Nigerian Breakfast</h3>
+              <h3 className="text-3xl font-light mb-3">Want the Full Nigerian Breakfast Experience?</h3>
               <p className="text-sm text-[#CDBAB5] font-light leading-relaxed mb-8">
-                Authentic Nigerian breakfast served fresh at our market stalls. Interested in a dedicated breakfast experience or delivery service? Sign up to be the first to know.
+                We're building something special. Sign up to be the first to know about exclusive breakfast events, delivery options, and new menu items. No spam — just good food announcements.
               </p>
               <form onSubmit={handleBreakfastSignup} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <Input
@@ -430,7 +473,7 @@ export default function Home() {
                   className="bg-[#C9A96E] text-[#0A0507] hover:bg-[#D4B87A] rounded-none text-xs uppercase tracking-[0.15em] px-8 py-6"
                   data-testid="breakfast-signup-btn"
                 >
-                  I'm Interested
+                  Count Me In
                 </Button>
               </form>
             </div>
@@ -449,7 +492,7 @@ export default function Home() {
               Manchester <span className="italic">Christmas Markets</span> 2025
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#CDBAB5] mb-3 font-light max-w-xl mx-auto">
-              We're working towards showcasing HibiscusPlus at the iconic Manchester Christmas Markets this November. Hot Zobo, spiced teas, and festive Nigerian street food under the Christmas lights.
+              Hot Zobo under the fairy lights. Puff Puff in your mittens. Nigerian spice warming your soul while Mariah plays for the 47th time. We're coming.
             </motion.p>
             <motion.p variants={fadeUp} className="text-xs text-[#8A7670] mb-8">
               7th November – 22nd December 2025 &middot; Albert Square, Cathedral Gardens & more
@@ -571,7 +614,7 @@ export default function Home() {
               Join the <span className="italic">Inner Circle</span>
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#CDBAB5] mb-10 font-light">
-              Be the first to know about new blends, exclusive events, and wellness insights.
+              New blends, secret market dates, and first dibs on events. Zero spam. We promise we're more interesting than your bank's newsletter.
             </motion.p>
             <motion.form variants={fadeUp} onSubmit={handleNewsletter} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <Input
