@@ -133,12 +133,12 @@ export default function Home() {
             <motion.div variants={fadeUp} className="mt-10 flex flex-col sm:flex-row gap-4">
               <a href="#shop">
                 <Button className="bg-[var(--hp-burgundy)] text-[var(--hp-ivory)] hover:bg-[var(--hp-wine)] rounded-none px-10 py-6 text-sm uppercase tracking-[0.18em] font-medium" data-testid="hero-shop-btn">
-                  Explore Collection <ArrowRight className="ml-2 h-4 w-4" />
+                  Explore Tea Blends <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
-              <Link to="/recipes">
+              <Link to="/shop">
                 <Button variant="outline" className="border-[var(--hp-burgundy)]/40 text-[var(--hp-burgundy)] hover:bg-[var(--hp-burgundy)]/5 rounded-none px-10 py-6 text-sm uppercase tracking-[0.18em] font-medium" data-testid="hero-recipes-btn">
-                  Browse Recipes
+                  Order Snacks
                 </Button>
               </Link>
             </motion.div>
@@ -210,11 +210,11 @@ export default function Home() {
                       <span key={ing} className="text-[11px] px-3 py-1 border border-[var(--hp-ivory)]/30 text-[var(--hp-ivory)]/90">{ing}</span>
                     ))}
                   </div>
-                  <a href="https://admin.shopify.com/store/hibiscusplus-limited" target="_blank" rel="noopener noreferrer">
+                  <Link to="/shop">
                     <Button className="bg-[var(--hp-bronze-light)] text-[var(--hp-ink)] hover:bg-[var(--hp-bronze)] hover:text-[var(--hp-ivory)] rounded-none text-[11px] uppercase tracking-[0.18em] px-5 py-3" data-testid={`buy-${product.id}`}>
-                      Shop on HibiscusPlus <ArrowRight className="ml-2 h-3.5 w-3.5" />
+                      Order Now <ArrowRight className="ml-2 h-3.5 w-3.5" />
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             ))}

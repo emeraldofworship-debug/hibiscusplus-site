@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ShoppingBag, Menu, X } from 'lucide-react';
-import { IMG } from '../assets/images';
+import { useLogo } from '../hooks/useLogo';
+import { useCart } from '../contexts/CartContext';
 
 const NAV_LINKS = [
-  { label: 'Shop', to: '/#shop' },
+  { label: 'Shop', to: '/shop' },
   { label: 'Recipes', to: '/recipes' },
   { label: 'Markets', to: '/markets' },
   { label: 'Breakfast', to: '/breakfast' },
@@ -17,6 +18,8 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const logo = useLogo();
+  const { count } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -35,7 +38,7 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-3 md:py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center shrink-0" data-testid="nav-logo-link">
-          <img src={IMG.logo} alt="HibiscusPlus" className="h-11 md:h-12 w-auto" data-testid="header-logo" />
+          <img src={logo} alt="HibiscusPlus" className="h-11 md:h-12 w-auto" data-testid="header-logo" />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7">
@@ -67,20 +70,20 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <a
-            href="https://admin.shopify.com/store/hibiscusplus-limited"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex"
-          >
+          <Link to="/shop" className="hidden md:inline-flex relative">
             <Button
               className="bg-[var(--hp-burgundy)] text-[var(--hp-ivory)] hover:bg-[var(--hp-wine)] text-[11px] uppercase tracking-[0.18em] rounded-none px-5 py-2 h-auto"
               data-testid="shop-now-btn"
             >
               <ShoppingBag className="h-3.5 w-3.5 mr-2" />
               Shop
+              {count > 0 && (
+                <span className="ml-2 bg-[var(--hp-bronze-light)] text-[var(--hp-ink)] text-[10px] px-1.5 py-0.5 leading-none" data-testid="cart-count-badge">
+                  {count}
+                </span>
+              )}
             </Button>
-          </a>
+          </Link>
           <button
             className="lg:hidden p-2 text-[var(--hp-burgundy)]"
             onClick={() => setOpen(v => !v)}

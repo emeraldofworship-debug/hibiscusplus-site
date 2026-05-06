@@ -55,25 +55,15 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - **Feedback:** QR code on /feedback page links directly to feedback form
 
 ## What's Been Implemented
-- **2026-02 Light Premium Pivot:** Replaced dark luxury (#0A0507) theme with warm cream + burgundy palette derived from the logo. Updated `index.css`, all pages, and shared `Navbar`/`Footer` components.
-- **Multi-page architecture:** Extracted Recipes, Blog, Markets, and Breakfast into dedicated pages. Home is now a leaner overview with CTA tiles linking out.
-- **5 new AVIF lifestyle images integrated:** Mug with petals (hero + blog), tea by window (blog hero), pouch/bowl (markets hero), red pitcher (recipes hero), amber tea (breakfast hero). Centralised in `/app/frontend/src/assets/images.js`.
-- Shared `Navbar.js` (sticky, scroll-aware, mobile menu) and `Footer.js` reused across all public pages.
-- `ScrollManager` in `App.js` resets scroll on route change and supports anchor links (e.g. `/#shop`).
-- Recipes page: live search, category filters, beetroot badge, benefits chips (handles both array and CSV string from API).
-- Blog page: featured-first layout, category filter, search, newsletter signup.
-- Markets page: locations grid, full menu, juices section, Christmas teaser.
-- Breakfast page: signature plate spotlight, dishes grid, value props, signup.
-- Hero section with cinematic typography (logo-derived burgundy on cream)
-- Product showcase with AI-generated luxury matte black pouch mockups
-- Feedback page with QR code for Chester event (9th May) + star rating + blend selection (relit to new theme)
-- Research-backed recipe collection (12 recipes, 6 signature Zobo with beetroot)
-- Newsletter subscription
-- Shopify shop integration (external link)
-- Full branding consistency
-- Contact info: emeraldofworship@hibiscusplus.co.uk, 07508597742, @hibiscusplus_ltd
-- Internal guidance pages hidden from public navigation
-- A4 letterhead PDF (downloadable via /api/download/letterhead)
+- **2026-02 Phase 4 — Shop activation (LIVE-READY):** Stripe Checkout integration via emergentintegrations, cart context with localStorage persistence, /shop public page, /shop/success polling page with idempotent status, /api/checkout/session + /api/checkout/status + /api/webhook/stripe + /api/admin/orders, payment_transactions collection. GBP only, server-side pricing authority.
+- **2026-02 Phase 5 — Snacks & Tea catalogue:** 9 typed products in DB (3 tea blends + 5 snacks + 1 breakfast event). /shop filters auto-derive from category.
+- **2026-02 Phase 3 — Logo upload (admin):** Admin paste-URL flow at /admin/branding, settings collection in DB, useLogo() hook updates Navbar/Footer/AdminLayout in real time.
+- **2026-02 SEO basics:** robots.txt, sitemap.xml, proper title + meta description + Open Graph + Twitter cards in index.html.
+- **2026-02 Light Premium Pivot + Multi-page Architecture:** All recipes/blog/markets/breakfast on dedicated routes with shared Navbar/Footer.
+- **2026-02 Admin Panel Phase 2 + 2.5:** JWT auth, brute-force lockout, CRUD for recipes/products/blog, subscribers viewer + CSV export, feedback viewer with star ratings, change password flow, orders viewer with revenue.
+- A4 letterhead PDF download
+- Newsletter subscriptions, feedback form with QR code + 5-star ratings
+- Dynamic admin-controlled logo across the entire site
 
 ## Tech Stack
 - **Frontend:** React, Framer Motion, TailwindCSS, Shadcn UI, qrcode.react

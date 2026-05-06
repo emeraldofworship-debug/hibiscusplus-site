@@ -26,6 +26,10 @@ from auth import (
     clear_attempts,
 )
 from fastapi import Depends, Request
+from emergentintegrations.payments.stripe.checkout import (
+    StripeCheckout,
+    CheckoutSessionRequest,
+)
 
 
 ROOT_DIR = Path(__file__).parent
@@ -585,6 +589,203 @@ async def admin_change_password(payload: PasswordChangeRequest, current=Depends(
         {"$set": {"password_hash": hash_password(payload.new_password)}}
     )
     return {"success": True, "message": "Password updated. You'll stay signed in for the rest of this session."}
+
+
+# Re-include router so the new admin routes are mounted (idempotent in FastAPI).
+
+
+# ============= SETTINGS / BRANDING =============
+
+DEFAULT_LOGO = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/eei6kk0o_HibiscuPlus_20260227_093727_0000%20%283%29%20%281%29.png"
+
+
+@api_router.get("/settings/branding", response_model=dict)
+async def get_branding():
+    """Public endpoint — returns the active logo URL (overridden via admin)."""
+    doc = await db.settings.find_one({"key": "branding"}, {"_id": 0})
+    if not doc:
+        return {"logo_url": DEFAULT_LOGO}
+    return {"logo_url": doc.get("logo_url") or DEFAULT_LOGO}
+
+
+@api_router.put("/admin/settings/branding", response_model=dict)
+async def update_branding(payload: dict, current=Depends(get_current_admin)):
+    """Admin-only — update logo URL."""
+    logo_url = (payload.get("logo_url") or "").strip()
+    if not logo_url:
+        raise HTTPException(status_code=400, detail="logo_url is required")
+    if not (logo_url.startswith("http://") or logo_url.startswith("https://")):
+        raise HTTPException(status_code=400, detail="logo_url must be an http(s) URL")
+    await db.settings.update_one(
+        {"key": "branding"},
+        {"$set": {"key": "branding", "logo_url": logo_url, "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+    return {"success": True, "logo_url": logo_url}
+
+
+# ============= STRIPE CHECKOUT =============
+
+@api_router.post("/checkout/session", response_model=dict)
+async def create_checkout_session(payload: dict, request: Request):
+    """Create a Stripe Checkout session for one or more cart items.
+
+    Frontend sends: {items: [{product_id, quantity}], origin_url}
+    Server is the source of truth for pricing — it looks up each product in
+    MongoDB and computes the total.
+    """
+    items = payload.get("items") or []
+    origin_url = (payload.get("origin_url") or "").rstrip("/")
+    if not items:
+        raise HTTPException(status_code=400, detail="Cart is empty")
+    if not origin_url:
+        raise HTTPException(status_code=400, detail="origin_url is required")
+
+    total = 0.0
+    line_metadata = []
+    for item in items:
+        pid = item.get("product_id")
+        qty = max(1, int(item.get("quantity", 1)))
+        product = await db.products.find_one({"id": pid})
+        if not product:
+            raise HTTPException(status_code=400, detail=f"Product not found: {pid}")
+        if product.get("comingSoon"):
+            raise HTTPException(status_code=400, detail=f"{product.get('name')} is not yet purchasable")
+        # price stored as e.g. "£8.50" or numeric
+        raw = product.get("price")
+        try:
+            price = float(str(raw).replace("£", "").replace("$", "").replace(",", "").strip())
+        except (TypeError, ValueError):
+            raise HTTPException(status_code=400, detail=f"Invalid price for {product.get('name')}")
+        total += price * qty
+        line_metadata.append({"id": pid, "name": product.get("name"), "qty": qty, "unit_price": price})
+
+    if total <= 0:
+        raise HTTPException(status_code=400, detail="Total must be greater than 0")
+
+    api_key = os.environ.get("STRIPE_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Stripe is not configured")
+
+    host_url = str(request.base_url).rstrip("/")
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url=webhook_url)
+
+    success_url = f"{origin_url}/shop/success?session_id={{CHECKOUT_SESSION_ID}}"
+    cancel_url = f"{origin_url}/shop"
+
+    metadata = {
+        "source": "hibiscusplus_shop",
+        "item_count": str(sum(i["qty"] for i in line_metadata)),
+        "items_summary": ", ".join(f"{m['qty']}x {m['name']}" for m in line_metadata)[:480],
+    }
+
+    session = await stripe_checkout.create_checkout_session(
+        CheckoutSessionRequest(
+            amount=round(total, 2),
+            currency="gbp",
+            success_url=success_url,
+            cancel_url=cancel_url,
+            metadata=metadata,
+        )
+    )
+
+    # Mandatory: persist transaction in initiated state BEFORE returning
+    await db.payment_transactions.insert_one({
+        "session_id": session.session_id,
+        "amount": round(total, 2),
+        "currency": "gbp",
+        "items": line_metadata,
+        "metadata": metadata,
+        "payment_status": "initiated",
+        "status": "open",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+
+    return {"url": session.url, "session_id": session.session_id, "amount": round(total, 2), "currency": "gbp"}
+
+
+@api_router.get("/checkout/status/{session_id}", response_model=dict)
+async def get_checkout_status(session_id: str, request: Request):
+    """Poll the status of a checkout session and update the local transaction
+    record idempotently. Idempotency: if already 'paid' in DB, do not re-process."""
+    api_key = os.environ.get("STRIPE_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Stripe is not configured")
+
+    host_url = str(request.base_url).rstrip("/")
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url=webhook_url)
+
+    txn = await db.payment_transactions.find_one({"session_id": session_id}, {"_id": 0})
+    if not txn:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+
+    # Idempotent: already finalised → return as-is
+    if txn.get("payment_status") in ("paid", "expired", "failed"):
+        return {**txn, "already_finalised": True}
+
+    status = await stripe_checkout.get_checkout_status(session_id)
+
+    update = {
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "stripe_amount_total": status.amount_total,
+        "stripe_currency": status.currency,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.payment_transactions.update_one({"session_id": session_id}, {"$set": update})
+
+    return {
+        "session_id": session_id,
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "amount_total": status.amount_total,
+        "currency": status.currency,
+        "metadata": status.metadata,
+        "items": txn.get("items", []),
+    }
+
+
+@app.post("/api/webhook/stripe")
+async def stripe_webhook(request: Request):
+    """Stripe webhook handler. Idempotent — only processes a session once."""
+    api_key = os.environ.get("STRIPE_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="Stripe is not configured")
+
+    host_url = str(request.base_url).rstrip("/")
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url=webhook_url)
+
+    body = await request.body()
+    signature = request.headers.get("Stripe-Signature", "")
+    try:
+        event = await stripe_checkout.handle_webhook(body, signature)
+    except Exception as e:
+        logger.error(f"Stripe webhook verification failed: {e}")
+        raise HTTPException(status_code=400, detail="Invalid webhook signature")
+
+    txn = await db.payment_transactions.find_one({"session_id": event.session_id})
+    if txn and txn.get("payment_status") not in ("paid", "expired", "failed"):
+        await db.payment_transactions.update_one(
+            {"session_id": event.session_id},
+            {"$set": {
+                "payment_status": event.payment_status,
+                "webhook_event_id": event.event_id,
+                "webhook_event_type": event.event_type,
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            }}
+        )
+
+    return {"received": True}
+
+
+@api_router.get("/admin/orders", response_model=dict)
+async def admin_list_orders(current=Depends(get_current_admin)):
+    """All payment transactions for the admin orders viewer."""
+    txns = await db.payment_transactions.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return {"success": True, "data": txns, "count": len(txns)}
 
 
 # Re-include router so the new admin routes are mounted (idempotent in FastAPI).
