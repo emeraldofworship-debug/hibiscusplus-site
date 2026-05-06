@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ShoppingBag, Menu, X } from 'lucide-react';
-
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/eei6kk0o_HibiscuPlus_20260227_093727_0000%20%283%29%20%281%29.png";
+import { IMG } from '../assets/images';
 
 const NAV_LINKS = [
   { label: 'Shop', to: '/#shop' },
@@ -36,7 +35,7 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-3 md:py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center shrink-0" data-testid="nav-logo-link">
-          <img src={LOGO_URL} alt="HibiscusPlus" className="h-11 md:h-12 w-auto" data-testid="header-logo" />
+          <img src={IMG.logo} alt="HibiscusPlus" className="h-11 md:h-12 w-auto" data-testid="header-logo" />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7">
