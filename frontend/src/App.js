@@ -33,6 +33,7 @@ import FeedbackAdmin from './pages/admin/FeedbackAdmin';
 import ChangePassword from './pages/admin/ChangePassword';
 import BrandingAdmin from './pages/admin/BrandingAdmin';
 import OrdersAdmin from './pages/admin/OrdersAdmin';
+import NotificationsAdmin from './pages/admin/NotificationsAdmin';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -74,6 +75,7 @@ function App() {
               <Route path="/admin/subscribers" element={<ProtectedRoute><SubscribersAdmin /></ProtectedRoute>} />
               <Route path="/admin/feedback" element={<ProtectedRoute><FeedbackAdmin /></ProtectedRoute>} />
               <Route path="/admin/orders" element={<ProtectedRoute><OrdersAdmin /></ProtectedRoute>} />
+              <Route path="/admin/notifications" element={<ProtectedRoute><NotificationsAdmin /></ProtectedRoute>} />
               <Route path="/admin/branding" element={<ProtectedRoute><BrandingAdmin /></ProtectedRoute>} />
               <Route path="/admin/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
 

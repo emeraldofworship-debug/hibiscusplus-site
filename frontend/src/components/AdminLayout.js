@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink, Mail, MessageSquare, KeyRound, Image as ImageIcon, Receipt } from 'lucide-react';
+import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink, Mail, MessageSquare, KeyRound, Image as ImageIcon, Receipt, Bell } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLogo } from '../hooks/useLogo';
 
@@ -10,6 +10,7 @@ const NAV = [
   { to: '/admin/products', label: 'Products', icon: ShoppingBag },
   { to: '/admin/blog', label: 'Blog', icon: BookOpen },
   { to: '/admin/orders', label: 'Orders', icon: Receipt },
+  { to: '/admin/notifications', label: 'Activity', icon: Bell },
   { to: '/admin/subscribers', label: 'Subscribers', icon: Mail },
   { to: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
   { to: '/admin/branding', label: 'Branding', icon: ImageIcon },

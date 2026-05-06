@@ -20,6 +20,25 @@ export default function Shop() {
   const [checkingOut, setCheckingOut] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
 
+  // Delivery state
+  const hasSnacks = useMemo(() => items.some((i) => i.category === 'snack'), [items]);
+  const allEvents = useMemo(() => items.length > 0 && items.every((i) => i.category === 'event'), [items]);
+  const canShip = useMemo(() => items.length > 0 && !hasSnacks && !allEvents, [items, hasSnacks, allEvents]);
+  const defaultMethod = allEvents ? 'ticket' : 'pickup';
+  const [method, setMethod] = useState(defaultMethod);
+  useEffect(() => {
+    // If cart contents change such that shipping is no longer possible, fall back.
+    if (method === 'ship' && !canShip) setMethod(allEvents ? 'ticket' : 'pickup');
+    if (method === 'ticket' && !allEvents) setMethod('pickup');
+  }, [method, canShip, allEvents]);
+
+  const [address, setAddress] = useState({ name: '', email: '', phone: '', line1: '', line2: '', city: '', postcode: '' });
+
+  const SHIP_FREE_THRESHOLD = 40;
+  const SHIP_FLAT = 4.5;
+  const shipping = method === 'ship' ? (total >= SHIP_FREE_THRESHOLD ? 0 : SHIP_FLAT) : 0;
+  const grandTotal = total + shipping;
+
   useEffect(() => {
     axios.get(`${API_URL}/api/products`)
       .then((res) => setProducts(res.data.data || []))
@@ -40,11 +59,21 @@ export default function Shop() {
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
+    if (method === 'ship') {
+      const required = ['name', 'email', 'line1', 'city', 'postcode'];
+      for (const k of required) {
+        if (!address[k]?.trim()) {
+          toast.error(`Please complete your ${k.replace('line1', 'address').replace('postcode', 'postcode')}.`);
+          return;
+        }
+      }
+    }
     setCheckingOut(true);
     try {
       const { data } = await axios.post(`${API_URL}/api/checkout/session`, {
         items: items.map((i) => ({ product_id: i.id, quantity: i.quantity })),
         origin_url: window.location.origin,
+        delivery: { method, address: method === 'ship' ? address : {} },
       });
       if (data.url) {
         window.location.href = data.url;
@@ -193,9 +222,62 @@ export default function Shop() {
                 </div>
 
                 <div className="border-t border-[var(--hp-line-soft)] pt-4 space-y-3">
-                  <div className="flex justify-between text-sm">
+                  {/* Delivery method */}
+                  <div className="space-y-2 mb-3" data-testid="cart-delivery">
+                    <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--hp-bronze)]">Delivery</p>
+                    <label className={`flex items-center gap-2 text-sm cursor-pointer ${method==='pickup'?'text-[var(--hp-burgundy)]':'text-[var(--hp-ink-soft)]'}`}>
+                      <input type="radio" name="method" value="pickup" checked={method==='pickup'} onChange={() => setMethod('pickup')} className="accent-[var(--hp-burgundy)]" data-testid="delivery-pickup" disabled={allEvents} />
+                      Collection at market <span className="text-[var(--hp-muted)] ml-auto">Free</span>
+                    </label>
+                    <label className={`flex items-center gap-2 text-sm cursor-pointer ${!canShip?'opacity-40':''} ${method==='ship'?'text-[var(--hp-burgundy)]':'text-[var(--hp-ink-soft)]'}`}>
+                      <input type="radio" name="method" value="ship" checked={method==='ship'} onChange={() => setMethod('ship')} className="accent-[var(--hp-burgundy)]" data-testid="delivery-ship" disabled={!canShip} />
+                      UK shipping (Royal Mail) <span className="text-[var(--hp-muted)] ml-auto">{total>=SHIP_FREE_THRESHOLD?'Free':`£${SHIP_FLAT.toFixed(2)}`}</span>
+                    </label>
+                    {hasSnacks && <p className="text-[10px] text-[var(--hp-muted)] italic">Snacks are collection-only (made fresh).</p>}
+                    {!hasSnacks && total < SHIP_FREE_THRESHOLD && method === 'ship' && (
+                      <p className="text-[10px] text-[var(--hp-bronze)]">Add £{(SHIP_FREE_THRESHOLD-total).toFixed(2)} more for free UK shipping.</p>
+                    )}
+                  </div>
+
+                  {/* Shipping address fields */}
+                  {method === 'ship' && (
+                    <div className="space-y-2 pt-2 border-t border-[var(--hp-line-soft)]" data-testid="cart-address">
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--hp-bronze)]">Shipping address</p>
+                      {[
+                        { k: 'name', ph: 'Full name', testid: 'addr-name' },
+                        { k: 'email', ph: 'Email', testid: 'addr-email' },
+                        { k: 'phone', ph: 'Phone (optional)', testid: 'addr-phone' },
+                        { k: 'line1', ph: 'Address line 1', testid: 'addr-line1' },
+                        { k: 'line2', ph: 'Address line 2 (optional)', testid: 'addr-line2' },
+                        { k: 'city', ph: 'City', testid: 'addr-city' },
+                        { k: 'postcode', ph: 'Postcode', testid: 'addr-postcode' },
+                      ].map(f => (
+                        <input
+                          key={f.k}
+                          type={f.k==='email'?'email':'text'}
+                          placeholder={f.ph}
+                          value={address[f.k]}
+                          onChange={(e) => setAddress(a => ({ ...a, [f.k]: e.target.value }))}
+                          className="w-full bg-[var(--hp-ivory)] border border-[var(--hp-line)] rounded-none px-3 py-2 text-sm focus:border-[var(--hp-burgundy)] focus:outline-none"
+                          data-testid={f.testid}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-sm pt-2">
                     <span className="text-[var(--hp-muted)] uppercase tracking-[0.18em] text-[10px]">Subtotal</span>
-                    <span className="text-[var(--hp-burgundy)] text-lg" data-testid="cart-total">£{total.toFixed(2)}</span>
+                    <span className="text-[var(--hp-ink)]" data-testid="cart-subtotal">£{total.toFixed(2)}</span>
+                  </div>
+                  {method === 'ship' && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-[var(--hp-muted)] uppercase tracking-[0.18em] text-[10px]">Shipping</span>
+                      <span className="text-[var(--hp-ink)]" data-testid="cart-shipping">{shipping===0?'FREE':`£${shipping.toFixed(2)}`}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between border-t border-[var(--hp-line-soft)] pt-2">
+                    <span className="text-[var(--hp-muted)] uppercase tracking-[0.18em] text-[10px]">Total</span>
+                    <span className="text-[var(--hp-burgundy)] text-lg" data-testid="cart-total">£{grandTotal.toFixed(2)}</span>
                   </div>
                   <Button
                     onClick={handleCheckout}

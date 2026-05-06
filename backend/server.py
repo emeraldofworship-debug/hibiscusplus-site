@@ -30,6 +30,10 @@ from emergentintegrations.payments.stripe.checkout import (
     StripeCheckout,
     CheckoutSessionRequest,
 )
+from notifications import notify, order_paid_html, feedback_html, newsletter_html
+
+UK_SHIPPING_FLAT = 4.50
+UK_SHIPPING_FREE_THRESHOLD = 40.00
 
 
 ROOT_DIR = Path(__file__).parent
@@ -308,7 +312,17 @@ async def subscribe_newsletter(subscriber: NewsletterSubscribe):
         )
         
         await db.newsletter_subscribers.insert_one(new_subscriber.dict())
-        
+        try:
+            await notify(
+                db, kind="newsletter.subscribed",
+                title=f"New subscriber — {subscriber.email}",
+                body=f"{subscriber.email} subscribed to the newsletter.",
+                html=newsletter_html(str(subscriber.email), getattr(subscriber, 'interest', '') or ''),
+                to_email=None, also_email_admin=True,
+                metadata={"email": str(subscriber.email)},
+            )
+        except Exception as e:
+            logger.warning(f"newsletter notification failed: {e}")
         return {
             "success": True,
             "message": "Successfully subscribed to newsletter"
@@ -630,19 +644,38 @@ async def update_branding(payload: dict, current=Depends(get_current_admin)):
 async def create_checkout_session(payload: dict, request: Request):
     """Create a Stripe Checkout session for one or more cart items.
 
-    Frontend sends: {items: [{product_id, quantity}], origin_url}
+    Frontend sends:
+        {
+          items: [{product_id, quantity}],
+          origin_url: str,
+          delivery: {method: 'pickup' | 'ship' | 'ticket',
+                     address?: {name, line1, line2?, city, postcode, phone?, email?}}
+        }
     Server is the source of truth for pricing — it looks up each product in
-    MongoDB and computes the total.
+    MongoDB, computes the subtotal, and adds shipping when applicable.
     """
     items = payload.get("items") or []
     origin_url = (payload.get("origin_url") or "").rstrip("/")
+    delivery = payload.get("delivery") or {"method": "pickup"}
     if not items:
         raise HTTPException(status_code=400, detail="Cart is empty")
     if not origin_url:
         raise HTTPException(status_code=400, detail="origin_url is required")
 
-    total = 0.0
+    method = delivery.get("method", "pickup")
+    if method not in ("pickup", "ship", "ticket"):
+        raise HTTPException(status_code=400, detail="Invalid delivery method")
+
+    address = delivery.get("address") or {}
+    if method == "ship":
+        required = ["name", "line1", "city", "postcode", "email"]
+        missing = [k for k in required if not address.get(k)]
+        if missing:
+            raise HTTPException(status_code=400, detail=f"Missing shipping fields: {', '.join(missing)}")
+
+    subtotal = 0.0
     line_metadata = []
+    has_perishable = False
     for item in items:
         pid = item.get("product_id")
         qty = max(1, int(item.get("quantity", 1)))
@@ -651,15 +684,25 @@ async def create_checkout_session(payload: dict, request: Request):
             raise HTTPException(status_code=400, detail=f"Product not found: {pid}")
         if product.get("comingSoon"):
             raise HTTPException(status_code=400, detail=f"{product.get('name')} is not yet purchasable")
-        # price stored as e.g. "£8.50" or numeric
         raw = product.get("price")
         try:
             price = float(str(raw).replace("£", "").replace("$", "").replace(",", "").strip())
         except (TypeError, ValueError):
             raise HTTPException(status_code=400, detail=f"Invalid price for {product.get('name')}")
-        total += price * qty
-        line_metadata.append({"id": pid, "name": product.get("name"), "qty": qty, "unit_price": price})
+        subtotal += price * qty
+        if product.get("type") == "snack":
+            has_perishable = True
+        line_metadata.append({"id": pid, "name": product.get("name"), "qty": qty, "unit_price": price, "type": product.get("type")})
 
+    # If the cart has any perishable snacks, we override 'ship' to 'pickup' for safety.
+    if has_perishable and method == "ship":
+        raise HTTPException(status_code=400, detail="Snacks are collection-only — fresh items can't be posted. Switch to pickup, or remove snacks to enable shipping.")
+
+    shipping_amount = 0.0
+    if method == "ship" and subtotal < UK_SHIPPING_FREE_THRESHOLD:
+        shipping_amount = UK_SHIPPING_FLAT
+
+    total = round(subtotal + shipping_amount, 2)
     if total <= 0:
         raise HTTPException(status_code=400, detail="Total must be greater than 0")
 
@@ -676,13 +719,20 @@ async def create_checkout_session(payload: dict, request: Request):
 
     metadata = {
         "source": "hibiscusplus_shop",
+        "delivery_method": method,
         "item_count": str(sum(i["qty"] for i in line_metadata)),
         "items_summary": ", ".join(f"{m['qty']}x {m['name']}" for m in line_metadata)[:480],
+        "shipping": f"{shipping_amount:.2f}",
+        "subtotal": f"{subtotal:.2f}",
     }
+    if address.get("email"):
+        metadata["customer_email"] = address["email"][:120]
+    if address.get("name"):
+        metadata["customer_name"] = address["name"][:120]
 
     session = await stripe_checkout.create_checkout_session(
         CheckoutSessionRequest(
-            amount=round(total, 2),
+            amount=total,
             currency="gbp",
             success_url=success_url,
             cancel_url=cancel_url,
@@ -690,19 +740,28 @@ async def create_checkout_session(payload: dict, request: Request):
         )
     )
 
-    # Mandatory: persist transaction in initiated state BEFORE returning
     await db.payment_transactions.insert_one({
         "session_id": session.session_id,
-        "amount": round(total, 2),
+        "amount": total,
+        "subtotal": round(subtotal, 2),
+        "shipping_amount": shipping_amount,
         "currency": "gbp",
         "items": line_metadata,
+        "delivery": {"method": method, "address": address if method == "ship" else {}},
         "metadata": metadata,
         "payment_status": "initiated",
         "status": "open",
         "created_at": datetime.now(timezone.utc).isoformat(),
     })
 
-    return {"url": session.url, "session_id": session.session_id, "amount": round(total, 2), "currency": "gbp"}
+    return {
+        "url": session.url,
+        "session_id": session.session_id,
+        "amount": total,
+        "subtotal": round(subtotal, 2),
+        "shipping_amount": shipping_amount,
+        "currency": "gbp",
+    }
 
 
 @api_router.get("/checkout/status/{session_id}", response_model=dict)
@@ -735,6 +794,25 @@ async def get_checkout_status(session_id: str, request: Request):
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
     await db.payment_transactions.update_one({"session_id": session_id}, {"$set": update})
+
+    # Fire order-paid notification once, on the transition into 'paid'.
+    if status.payment_status == "paid" and txn.get("payment_status") != "paid":
+        latest = await db.payment_transactions.find_one({"session_id": session_id}, {"_id": 0})
+        try:
+            customer_email = (latest.get("metadata") or {}).get("customer_email") or (latest.get("delivery", {}).get("address") or {}).get("email")
+            customer_name = (latest.get("metadata") or {}).get("customer_name") or (latest.get("delivery", {}).get("address") or {}).get("name") or ""
+            await notify(
+                db,
+                kind="order.paid",
+                title=f"Order paid — £{latest.get('amount',0):.2f}",
+                body=f"Order {session_id} paid. Items: {(latest.get('metadata') or {}).get('items_summary','')}",
+                html=order_paid_html(latest, customer_name=customer_name),
+                to_email=customer_email,
+                also_email_admin=True,
+                metadata={"session_id": session_id, "amount": latest.get("amount")},
+            )
+        except Exception as e:
+            logger.warning(f"order-paid notification failed: {e}")
 
     return {
         "session_id": session_id,
@@ -786,6 +864,13 @@ async def admin_list_orders(current=Depends(get_current_admin)):
     """All payment transactions for the admin orders viewer."""
     txns = await db.payment_transactions.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
     return {"success": True, "data": txns, "count": len(txns)}
+
+
+@api_router.get("/admin/notifications", response_model=dict)
+async def admin_list_notifications(current=Depends(get_current_admin)):
+    """All notifications, newest first. Used by /admin/notifications page."""
+    items = await db.notifications.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return {"success": True, "data": items, "count": len(items)}
 
 
 # Re-include router so the new admin routes are mounted (idempotent in FastAPI).
