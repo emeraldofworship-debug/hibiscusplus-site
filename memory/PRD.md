@@ -1,82 +1,88 @@
 # HibiscusPlus Limited — Product Requirements Document
 
 ## Original Problem Statement
-Build a comprehensive wellbeing website for **HIBISCUSPLUS LIMITED** (Company No. 17024055), a Manchester UK-based tea wellness brand. The website centres around hibiscus tea blends, including traditional Nigerian "Zobo" recipes, with research-backed health benefits.
+Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Company No. 17024055), a Manchester UK-based luxury artisanal tea wellness brand targeting the premium 1% upper-class audience.
 
 ## Business Details
 - **Company Name:** HIBISCUSPLUS LIMITED
 - **Company Number:** 17024055
 - **Location:** Manchester, UK
-- **Domain:** hibiscusplus.co.uk
-- **Industry:** Food & Beverage / Wellness
+- **Domain:** hibiscusplus.co.uk (registered via IONOS)
+- **Shopify:** https://admin.shopify.com/store/hibiscusplus-limited
+- **Instagram:** @hibiscusplus_ltd
+- **Email:** emeraldofworship@hibiscusplus.co.uk
+- **Phone:** 07508597742
+- **Tagline:** Boldly Spiced. Beautifully Balanced.
 
-## Core Requirements
-1. **About Section** — Health benefits of hibiscus
-2. **Tea Recipes** — Filtering, search, save, print. Includes signature Zobo recipes with beetroot
-3. **Shop/Products** — Currently "Coming Soon" (pending city council registration)
-4. **Blog** — Wellness articles
-5. **Contact/Newsletter** — Signup form
-6. **Guidance Documents** — Business setup guides, supplier docs, email templates
-7. **Social Media Guide** — Platform setup guides for all major social channels
+## Design System
+- **Theme:** Dark Moody Luxury
+- **Fonts:** Cormorant Garamond (headings), Manrope (body)
+- **Colours:** #0A0507 (background), #C9A96E (gold), #F7F0E3 (cream), #C41E3A (crimson), #6B1D3A (burgundy)
+- **Target:** Premium 1% upper-class men, women, families, businesses
+- **Style:** Fortnum & Mason / Harrods food hall aesthetic
 
-## Tech Stack
-- **Frontend:** React, React Router, Axios, TailwindCSS, Shadcn UI
-- **Backend:** FastAPI, Pydantic
-- **Database:** MongoDB (motor async driver)
+## Signature Products (Ready for Production)
+| Product | Subtitle | Ingredients | Image |
+|---------|----------|-------------|-------|
+| Metabo Ignite | Metabolism Support | Hibiscus, Green Tea, Ginger, Cinnamon, Clove | AI-generated mockup |
+| Bloom & Flush | Digestive Detox | Hibiscus, Dandelion Leaf, Fennel Seeds, Peppermint, Ginger | AI-generated mockup |
+| Glucose Guard | Crave Control | Hibiscus Petal, Cinnamon Bark, Chicory Root, Liquorice, Clove | AI-generated mockup |
 
-## Official Logos
-- **Logo 1 (Light):** For website, tea packaging, social media, email signatures
-  - URL: `https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/5ggfxigz_HibiscuPlus%20Limited%20Dynamic%20Letterform%20Integration%20%281%29.png`
-- **Logo 2 (Dark):** For market stall banners, signage, physical menus, cups
-  - URL: `https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/hwy1fub7_HibiscuPlus.png`
+## Events
+- **Chester Tea Tasting:** Saturday, 9th May 2025
+- **Feedback:** QR code on /feedback page links directly to feedback form
 
 ## What's Been Implemented
-- Full-stack application with all core sections
-- 12 tea recipes (6 general + 6 signature Zobo with research-backed benefits & beetroot)
-- 17 products in "Coming Soon" mode
-- Blog section with articles
+- Premium dark luxury redesign (complete frontend overhaul)
+- Hero section with cinematic typography and moody imagery
+- Product showcase with AI-generated luxury matte black pouch mockups
+- Feedback page with QR code for Chester event + star rating + blend selection
+- Research-backed recipe collection (12 recipes, 6 signature Zobo with beetroot)
 - Newsletter subscription
-- Multiple guidance pages (LaunchChecklist, PreLaunchChecklist, CompanySetupGuide, ManufacturerDocs, EmailTemplates, Suppliers, BrandAssets, LogoGuide)
-- Social Media & Email Setup Guide page
-- Complete rebranding to "HibiscusPlus" (from former "Hibiscus & Beyond")
-- Official logo integrated into website header across ALL pages
-- Both logos displayed on Brand Assets page with usage guidelines
+- Shopify shop integration (external link)
+- Full branding consistency (no old "Hibiscus & Beyond" references)
+- Contact info updated across site
+- Internal guidance pages hidden from public navigation
+- A4 letterhead PDF (downloadable via /api/download/letterhead)
 
-## Signature Zobo Recipes (Research-Backed)
-| ID | Name | Beetroot | Key Benefit |
-|----|------|----------|-------------|
-| 7 | Original Hibiscus Wellness Zobo | Yes | Antioxidant, BP reduction, immunity |
-| 8 | Vanilla Comfort Zobo | No | Stress relief, relaxation |
-| 9 | Tropical Ginger Pineapple Zobo | Yes | Vitamin C, anti-inflammatory |
-| 10 | Beetroot Lime Zobo Reviver | Yes | Heart health, nitric oxide, hydration |
-| 11 | Spiced Cinnamon Vanilla Zobo | Yes | Digestive health, blood sugar |
-| 12 | Citrus Lime Zing Zobo | Yes | Detox, immunity, energy |
-
-## Downloadable Assets
-- **A4 Letterhead PDF:** `/HibiscusPlus_Letterhead.pdf` — Professional letterhead with blended rose/cream gradient borders, Logo 1, tagline, and full contact details. For company use only (not linked on website).
-
-## Upcoming Tasks (Prioritised)
-- **P1:** Build Admin Panel for content management (recipes, products, blogs)
-- **P2:** Logo upload functionality (allow user to update logos dynamically)
-- **P2:** Activate shop with Stripe payment integration (blocked until user confirms readiness)
-- **P3:** Add Nigerian Snacks category to shop
+## Tech Stack
+- **Frontend:** React, Framer Motion, TailwindCSS, Shadcn UI, qrcode.react
+- **Backend:** FastAPI, Pydantic
+- **Database:** MongoDB (motor async driver)
+- **Hosting Plan:** Vercel (user's choice)
+- **E-commerce:** Shopify (external)
 
 ## API Endpoints
-- `GET /api/recipes` — All recipes with filtering
+- `GET /api/recipes` — All recipes
 - `GET /api/products` — All products
-- `GET /api/blog` — Blog posts with pagination
+- `GET /api/blog` — Blog posts
 - `POST /api/newsletter/subscribe` — Newsletter signup
+- `POST /api/feedback` — Submit event feedback
+- `GET /api/feedback` — Retrieve all feedback
+- `GET /api/download/letterhead` — Download letterhead PDF
 
-## Key Pages & Routes
-| Route | Page |
-|-------|------|
-| `/` | Home (all sections) |
-| `/checklist` | LaunchChecklist |
-| `/pre-launch` | PreLaunchChecklist |
-| `/company-setup` | CompanySetupGuide |
-| `/social-media` | SocialMediaGuide |
-| `/brand-assets` | BrandAssets (both logos) |
-| `/suppliers` | Suppliers |
-| `/email-templates` | EmailTemplates |
-| `/logo-guide` | LogoGuide |
-| `/manufacturer-docs` | ManufacturerDocs |
+## Pages & Routes
+| Route | Page | Public Nav |
+|-------|------|------------|
+| `/` | Home (premium) | Yes |
+| `/feedback` | Event Feedback + QR | Yes |
+| `/brand-assets` | Brand Assets (both logos) | Yes (footer) |
+| `/checklist` | LaunchChecklist | Hidden |
+| `/suppliers` | Suppliers | Hidden |
+| `/email-templates` | EmailTemplates | Hidden |
+| `/logo-guide` | LogoGuide | Hidden |
+| `/pre-launch` | PreLaunchChecklist | Hidden |
+| `/manufacturer-docs` | ManufacturerDocs | Hidden |
+| `/company-setup` | CompanySetupGuide | Hidden |
+| `/social-media` | SocialMediaGuide | Hidden |
+
+## Upcoming Tasks
+- **P1:** Build Admin Panel for content management
+- **P1:** Deploy to Vercel via GitHub
+- **P2:** Full Recipes page (dedicated page showing all 12 recipes with filters)
+- **P2:** Full Blog page (dedicated page for articles)
+- **P3:** Nigerian Snacks expansion
+
+## Logos
+- **Logo 1 (Light):** Website, tea packaging, digital — customer-assets URL
+- **Logo 2 (Dark):** Market stalls, signage, physical branding — customer-assets URL
