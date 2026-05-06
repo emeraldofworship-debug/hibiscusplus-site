@@ -16,10 +16,13 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - **Tagline:** Boldly Spiced. Beautifully Balanced.
 
 ## Hosting & Deployment
-- **Platform:** Vercel (connected via GitHub)
-- **vercel.json** at root: build command `cd frontend && yarn install && yarn build`, output `frontend/build`
-- **Fix for blank Vercel page:** Go to Vercel Dashboard → Project Settings → Root Directory → set `frontend`, Framework Preset → Create React App
-- **Backend:** Currently on Emergent preview. For production, deploy to Railway/Render/Vercel Serverless
+- **Platform:** Vercel (connected via GitHub) for frontend, Emergent preview backend for now
+- **vercel.json** at root (hardened 2026-02): build via `cd frontend && yarn install --frozen-lockfile && yarn build`, output `frontend/build`, immutable cache for `/static/*`, SPA rewrites that exclude static assets
+- **Vercel project setup:** Root Directory = `./` (NOT `frontend`), Framework Preset = Other, Node 20.x
+- **Required Vercel env vars:** `REACT_APP_BACKEND_URL`, `WDS_SOCKET_PORT=443`, `ENABLE_HEALTH_CHECK=false`
+- **Custom domain:** hibiscusplus.co.uk via IONOS DNS (A → 76.76.21.21, CNAME www → cname.vercel-dns.com)
+- **Deploy guide:** see `/app/DEPLOY.md` for full step-by-step including troubleshooting + future Railway/Render migration for the backend
+- **Last verified build:** 25.6s, 213KB JS + 14KB CSS gzipped
 
 ## Design System (Updated 2026-02 — Light Premium Pivot)
 - **Theme:** Light Premium — warm cream + burgundy + bronze, inspired by the logo
