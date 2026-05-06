@@ -21,12 +21,24 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - **Fix for blank Vercel page:** Go to Vercel Dashboard → Project Settings → Root Directory → set `frontend`, Framework Preset → Create React App
 - **Backend:** Currently on Emergent preview. For production, deploy to Railway/Render/Vercel Serverless
 
-## Design System
-- **Theme:** Dark Moody Luxury
+## Design System (Updated 2026-02 — Light Premium Pivot)
+- **Theme:** Light Premium — warm cream + burgundy + bronze, inspired by the logo
 - **Fonts:** Cormorant Garamond (headings), Manrope (body)
-- **Colours:** #0A0507 (background), #C9A96E (gold), #F7F0E3 (cream), #C41E3A (crimson), #6B1D3A (burgundy)
+- **Colours (CSS vars in `index.css`):**
+  - `--hp-cream: #FAF5EE` (background)
+  - `--hp-cream-deep: #F4EADB` (alt section)
+  - `--hp-blush: #F7E7DF` (accent surface)
+  - `--hp-ivory: #FFFBF5` (cards)
+  - `--hp-burgundy: #6B1D3A` (primary)
+  - `--hp-wine: #8B2A4A` (hover)
+  - `--hp-hibiscus: #C41E3A`
+  - `--hp-bronze: #A67C3E`
+  - `--hp-bronze-light: #C9A96E`
+  - `--hp-ink: #2A1418` (text)
+  - `--hp-ink-soft: #4A2D33`
+  - `--hp-muted: #7A6257`
 - **Target:** Premium 1% upper-class men, women, families, businesses
-- **Style:** Fortnum & Mason / Harrods food hall aesthetic
+- **Style:** Fortnum & Mason / Harrods food hall aesthetic — now in daylight
 
 ## Signature Products (Ready for Production)
 | Product | Subtitle | Ingredients | Image |
@@ -40,16 +52,18 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 - **Feedback:** QR code on /feedback page links directly to feedback form
 
 ## What's Been Implemented
-- Premium dark luxury redesign (complete frontend overhaul)
-- Hero section with cinematic typography and moody imagery
+- **2026-02 Light Premium Pivot:** Replaced dark luxury (#0A0507) theme with warm cream + burgundy palette derived from the logo. Updated `index.css`, all pages, and shared `Navbar`/`Footer` components.
+- **Multi-page architecture:** Extracted Recipes, Blog, Markets, and Breakfast into dedicated pages. Home is now a leaner overview with CTA tiles linking out.
+- **5 new AVIF lifestyle images integrated:** Mug with petals (hero + blog), tea by window (blog hero), pouch/bowl (markets hero), red pitcher (recipes hero), amber tea (breakfast hero). Centralised in `/app/frontend/src/assets/images.js`.
+- Shared `Navbar.js` (sticky, scroll-aware, mobile menu) and `Footer.js` reused across all public pages.
+- `ScrollManager` in `App.js` resets scroll on route change and supports anchor links (e.g. `/#shop`).
+- Recipes page: live search, category filters, beetroot badge, benefits chips (handles both array and CSV string from API).
+- Blog page: featured-first layout, category filter, search, newsletter signup.
+- Markets page: locations grid, full menu, juices section, Christmas teaser.
+- Breakfast page: signature plate spotlight, dishes grid, value props, signup.
+- Hero section with cinematic typography (logo-derived burgundy on cream)
 - Product showcase with AI-generated luxury matte black pouch mockups
-- **Market Stalls section** with The Makers Market locations (Northern Quarter 2nd Sunday, Bolton, Levenshulme, Media City)
-- **Street Food Menu** — Zobo, Koko, Puff Puff, Samosa, Akara, Spring Rolls
-- **Premium Nigerian Breakfast** signup form for interested customers
-- **Freshly Juiced Fruits** section with on-demand delivery info + social media announcement details
-- **Manchester Christmas Markets 2025** teaser (7th Nov – 22nd Dec)
-- **TikTok @hibiscusplus** integrated across site (fresh juices section + footer)
-- Feedback page with QR code for Chester event (9th May) + star rating + blend selection
+- Feedback page with QR code for Chester event (9th May) + star rating + blend selection (relit to new theme)
 - Research-backed recipe collection (12 recipes, 6 signature Zobo with beetroot)
 - Newsletter subscription
 - Shopify shop integration (external link)
@@ -77,7 +91,11 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 ## Pages & Routes
 | Route | Page | Public Nav |
 |-------|------|------------|
-| `/` | Home (premium) | Yes |
+| `/` | Home (premium light) | Yes |
+| `/recipes` | Recipes (search + filters) | Yes |
+| `/blog` | Blog (featured + filters) | Yes |
+| `/markets` | Market Stalls + Juices | Yes |
+| `/breakfast` | Premium Nigerian Breakfast | Yes |
 | `/feedback` | Event Feedback + QR | Yes |
 | `/brand-assets` | Brand Assets (both logos) | Yes (footer) |
 | `/checklist` | LaunchChecklist | Hidden |
@@ -90,11 +108,11 @@ Build a comprehensive premium wellbeing website for **HIBISCUSPLUS LIMITED** (Co
 | `/social-media` | SocialMediaGuide | Hidden |
 
 ## Upcoming Tasks
-- **P1:** Build Admin Panel for content management
-- **P1:** Deploy to Vercel via GitHub
-- **P2:** Full Recipes page (dedicated page showing all 12 recipes with filters)
-- **P2:** Full Blog page (dedicated page for articles)
-- **P3:** Nigerian Snacks expansion
+- **P1:** Deploy to Vercel via GitHub (frontend ready; backend serverless setup needed)
+- **P1:** Build Admin Panel for content management (recipes/products/blogs CRUD)
+- **P2:** Logo upload feature (allow user to update logo via UI)
+- **P2:** Activate shop functionality (Stripe payment gateway, Shopify deeper integration)
+- **P3:** Nigerian Snacks shop expansion
 
 ## Logos
 - **Logo 1 (Light):** Website, tea packaging, digital — customer-assets URL
