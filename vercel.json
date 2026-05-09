@@ -13,6 +13,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!static/|favicon.ico|robots.txt|manifest.json).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|static/|.*\\..*).*)", "destination": "/index.html" }
   ]
 }
