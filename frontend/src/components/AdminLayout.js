@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink, Mail, MessageSquare, KeyRound, Image as ImageIcon, Receipt, Bell } from 'lucide-react';
+import { LogOut, LayoutDashboard, Leaf, ShoppingBag, BookOpen, ExternalLink, Mail, MessageSquare, KeyRound, Image as ImageIcon, Receipt, Bell, QrCode } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLogo } from '../hooks/useLogo';
 
@@ -13,6 +13,7 @@ const NAV = [
   { to: '/admin/notifications', label: 'Activity', icon: Bell },
   { to: '/admin/subscribers', label: 'Subscribers', icon: Mail },
   { to: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
+  { to: '/admin/event-qr', label: 'Event QR', icon: QrCode },
   { to: '/admin/branding', label: 'Branding', icon: ImageIcon },
 ];
 

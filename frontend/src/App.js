@@ -34,6 +34,8 @@ import ChangePassword from './pages/admin/ChangePassword';
 import BrandingAdmin from './pages/admin/BrandingAdmin';
 import OrdersAdmin from './pages/admin/OrdersAdmin';
 import NotificationsAdmin from './pages/admin/NotificationsAdmin';
+import EventQR from './pages/admin/EventQR';
+import LaunchList from './pages/LaunchList';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -64,6 +66,7 @@ function App() {
               <Route path="/markets" element={<Markets />} />
               <Route path="/breakfast" element={<Breakfast />} />
               <Route path="/feedback" element={<Feedback />} />
+              <Route path="/launch-list" element={<LaunchList />} />
               <Route path="/brand-assets" element={<BrandAssets />} />
 
               {/* Admin */}
@@ -76,6 +79,7 @@ function App() {
               <Route path="/admin/feedback" element={<ProtectedRoute><FeedbackAdmin /></ProtectedRoute>} />
               <Route path="/admin/orders" element={<ProtectedRoute><OrdersAdmin /></ProtectedRoute>} />
               <Route path="/admin/notifications" element={<ProtectedRoute><NotificationsAdmin /></ProtectedRoute>} />
+              <Route path="/admin/event-qr" element={<ProtectedRoute><EventQR /></ProtectedRoute>} />
               <Route path="/admin/branding" element={<ProtectedRoute><BrandingAdmin /></ProtectedRoute>} />
               <Route path="/admin/change-password" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
 

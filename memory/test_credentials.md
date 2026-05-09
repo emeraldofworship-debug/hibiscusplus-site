@@ -6,7 +6,7 @@
 
 - **URL:** `/admin/login` (e.g. `https://tea-wellness-guide.preview.emergentagent.com/admin/login`)
 - **Email:** `emeraldofworship@hibiscusplus.co.uk`
-- **Password:** `Hibiscus2025!`
+- **Password:** `HP-Boldly-Spiced-Beautifully-Balanced-2026`
 - **Role:** `admin`
 
 ## Auth Endpoints (backend)
