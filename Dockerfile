@@ -1,5 +1,5 @@
 # HibiscusPlus Backend — Railway Production Image
-# Slim image. All Python deps have pre-built wheels — no apt-get needed.
+# Slim image. All Python deps have pre-built wheels 
 FROM python:3.11-slim
 
 WORKDIR /app
