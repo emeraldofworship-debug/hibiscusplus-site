@@ -1,0 +1,34 @@
+# Frontend (Railway only builds backend image via Dockerfile)
+frontend/
+node_modules/
+
+# Local env (never commit)
+.env
+.env.local
+backend/.env
+
+# Build artefacts
+build/
+dist/
+.next/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyc
+.venv/
+venv/
+
+# Editor
+.vscode/
+.DS_Store
+
+# Tests / reports
+test_reports/
+test_result.md
+.emergent/
+memory/
+
+# Misc docs
+*.md
+!README.md
