@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+.venv/
+venv/
+
+# Frontend (Railway only builds backend)
+frontend/
+node_modules/
+
+# Local env (never commit)
+.env
+.env.local
+
+# Build artefacts
+build/
+dist/
+.next/
+
+# Editor
+.vscode/
+.DS_Store
+
+# Tests / reports
+test_reports/
+test_result.md
