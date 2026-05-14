@@ -2,7 +2,6 @@
   "buildCommand": "cd frontend && yarn install --frozen-lockfile && yarn build",
   "outputDirectory": "frontend/build",
   "framework": null,
-  "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
     {
@@ -13,6 +12,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!api/|static/|.*\\..*).*)", "destination": "/index.html" }
+    { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
