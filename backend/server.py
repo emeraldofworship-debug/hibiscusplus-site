@@ -418,7 +418,7 @@ async def seed_admin_user():
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
         logger.info(f"Seeded admin user: {admin_email}")
-    elif not verify_password(admin_password, existing["password_hash"]):
+    elif not verify_password(admin_password, existing.get("password_hash")):
         await db.admin_users.update_one(
             {"email": admin_email},
             {"$set": {"password_hash": hash_password(admin_password)}}
