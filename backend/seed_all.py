@@ -31,13 +31,17 @@ async def ensure_admin():
     if existing:
         await db.admin_users.update_one(
             {"email": ADMIN_EMAIL},
-            {"$set": {"hashed_password": hashed, "role": "admin"}},
+            {
+                "$set": {"password_hash": hashed, "role": "admin"},
+                "$unset": {"hashed_password": ""},
+            },
         )
         print(f"✅ Admin password reset for {ADMIN_EMAIL}")
     else:
         await db.admin_users.insert_one({
             "email": ADMIN_EMAIL,
-            "hashed_password": hashed,
+            "password_hash": hashed,
+            "name": "HibiscusPlus Admin",
             "role": "admin",
             "created_at": datetime.now(timezone.utc).isoformat(),
         })

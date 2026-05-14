@@ -418,12 +418,19 @@ async def seed_admin_user():
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
         logger.info(f"Seeded admin user: {admin_email}")
-    elif not verify_password(admin_password, existing["password_hash"]):
-        await db.admin_users.update_one(
-            {"email": admin_email},
-            {"$set": {"password_hash": hash_password(admin_password)}}
-        )
-        logger.info(f"Updated admin password hash for: {admin_email}")
+    else:
+        # Defensive: handle legacy docs that may have used a different field name
+        # (e.g. "hashed_password" from earlier seed scripts) or be missing the hash.
+        stored_hash = existing.get("password_hash") or existing.get("hashed_password")
+        if not stored_hash or not verify_password(admin_password, stored_hash):
+            await db.admin_users.update_one(
+                {"email": admin_email},
+                {
+                    "$set": {"password_hash": hash_password(admin_password)},
+                    "$unset": {"hashed_password": ""},
+                },
+            )
+            logger.info(f"Updated admin password hash for: {admin_email}")
 
 
 @api_router.post("/admin/login", response_model=TokenResponse)
