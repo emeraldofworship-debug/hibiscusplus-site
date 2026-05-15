@@ -116,7 +116,24 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--hp-cream)]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto w-full pt-24 md:pt-32 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="relative max-w-7xl mx-auto w-full pt-24 md:pt-28 pb-12 flex flex-col items-center">
+          {/* Hero brand logo — first thing visitors see */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full flex justify-center mb-10 md:mb-14"
+            data-testid="hero-brand-logo-wrap"
+          >
+            <img
+              src={IMG.logo}
+              alt="HibiscusPlus Limited — Boldly Spiced, Beautifully Balanced"
+              className="h-48 sm:h-64 md:h-80 lg:h-[22rem] w-auto object-contain drop-shadow-[0_18px_40px_rgba(99,30,45,0.35)]"
+              data-testid="hero-brand-logo"
+            />
+          </motion.div>
+
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <motion.div className="lg:col-span-7" initial="hidden" animate="visible" variants={stagger}>
             <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.32em] text-[var(--hp-burgundy)] mb-5">
               Artisanal Wellness · Manchester, UK
@@ -162,6 +179,7 @@ export default function Home() {
               <img src={IMG.avifMugPetals} alt="HibiscusPlus mug with petals" className="w-full h-full object-cover" />
             </div>
           </motion.div>
+        </div>
         </div>
 
         <motion.div

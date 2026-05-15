@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const BASE = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts";
 
-const DEFAULT_LOGO = `${BASE}/eei6kk0o_HibiscuPlus_20260227_093727_0000%20%283%29%20%281%29.png`;
+const DEFAULT_LOGO = `${BASE}/wmxpysl8_1000285452.png`;
 
 export const IMG = {
   // Logo — initially the default; replaced at runtime by AppBranding.

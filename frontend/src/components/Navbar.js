@@ -38,7 +38,7 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-3 md:py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center shrink-0" data-testid="nav-logo-link">
-          <img src={logo} alt="HibiscusPlus" className="h-14 md:h-20 w-auto" data-testid="header-logo" />
+          <img src={logo} alt="HibiscusPlus" className="h-11 md:h-12 w-auto" data-testid="header-logo" />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7">
