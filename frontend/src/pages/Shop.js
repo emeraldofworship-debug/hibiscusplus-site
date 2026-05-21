@@ -50,6 +50,10 @@ export default function Shop() {
     () => products.filter((p) => !p.comingSoon && ['tea', 'snack', 'event'].includes(p.type)),
     [products]
   );
+  const comingSoonTeas = useMemo(
+    () => products.filter((p) => p.comingSoon && (p.type === 'tea' || p.category === 'tea' || p.category === 'Tea Blends')),
+    [products]
+  );
   const categories = useMemo(() => {
     const set = new Set(purchasable.map((p) => p.category).filter(Boolean));
     return ['All', ...Array.from(set)];
@@ -173,9 +177,60 @@ export default function Shop() {
                           <Plus className="h-3 w-3 mr-1.5" /> Add
                         </Button>
                       </div>
+                      <Link
+                        to={`/feedback?product=${encodeURIComponent(p.name)}`}
+                        className="mt-3 text-[10px] uppercase tracking-[0.22em] text-[var(--hp-muted)] hover:text-[var(--hp-burgundy)] transition-colors"
+                        data-testid={`shop-feedback-${p.id}`}
+                      >
+                        Leave feedback →
+                      </Link>
                     </div>
                   </motion.div>
                 ))}
+              </div>
+            )}
+
+            {comingSoonTeas.length > 0 && (
+              <div className="mt-16" data-testid="coming-soon-section">
+                <div className="mb-6 border-t border-[var(--hp-line-soft)] pt-10">
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--hp-burgundy)] mb-3">Coming Soon</p>
+                  <h2 className="text-2xl md:text-3xl font-light text-[var(--hp-burgundy-deep)]">
+                    Our <span className="italic">Signature Tea Blends</span>
+                  </h2>
+                  <p className="mt-3 text-sm text-[var(--hp-ink-soft)] font-light max-w-2xl">
+                    Three precision-crafted blends are in final formulation. Be first to know when they launch — and tell us what you'd love to taste.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {comingSoonTeas.map((p) => (
+                    <div
+                      key={p.id}
+                      className="hp-card overflow-hidden flex flex-col opacity-95"
+                      data-testid={`coming-soon-${p.id}`}
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden bg-[var(--hp-blush)]">
+                        {p.image && <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />}
+                        <span className="absolute top-3 right-3 bg-[var(--hp-burgundy)] text-[var(--hp-ivory)] text-[10px] uppercase tracking-[0.22em] px-3 py-1.5">
+                          Coming Soon
+                        </span>
+                      </div>
+                      <div className="p-5 flex-1 flex flex-col">
+                        <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--hp-bronze)] mb-1">{p.category}</p>
+                        <h3 className="text-lg text-[var(--hp-burgundy-deep)] mb-2 leading-tight">{p.name}</h3>
+                        {p.description && (
+                          <p className="text-xs text-[var(--hp-ink-soft)] font-light leading-relaxed mb-4 line-clamp-3">{p.description}</p>
+                        )}
+                        <Link
+                          to={`/feedback?product=${encodeURIComponent(p.name)}`}
+                          className="mt-auto inline-block text-center border border-[var(--hp-burgundy)] text-[var(--hp-burgundy)] hover:bg-[var(--hp-burgundy)] hover:text-[var(--hp-ivory)] rounded-none text-[10px] uppercase tracking-[0.22em] px-4 py-3 transition-colors"
+                          data-testid={`coming-soon-feedback-${p.id}`}
+                        >
+                          Share What You'd Like
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

@@ -58,6 +58,7 @@ export const Footer = () => {
             <li><Link to="/markets" className="hover:text-[var(--hp-burgundy)] transition-colors">Market Stalls</Link></li>
             <li><Link to="/breakfast" className="hover:text-[var(--hp-burgundy)] transition-colors">Breakfast Menu</Link></li>
             <li><Link to="/blog" className="hover:text-[var(--hp-burgundy)] transition-colors">Blog</Link></li>
+            <li><Link to="/feedback" className="hover:text-[var(--hp-burgundy)] transition-colors" data-testid="footer-feedback-link">Leave Feedback</Link></li>
             <li><Link to="/feedback" className="hover:text-[var(--hp-burgundy)] transition-colors">Events & Feedback</Link></li>
           </ul>
         </div>

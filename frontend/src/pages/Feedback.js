@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Toaster } from '../components/ui/sonner';
 import { toast } from 'sonner';
-import { Star, Send, MapPin, Calendar } from 'lucide-react';
+import { Star, Send, MapPin, Calendar, MessageSquare, Package } from 'lucide-react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { useLogo } from '../hooks/useLogo';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 const FEEDBACK_URL = typeof window !== 'undefined' ? `${window.location.origin}/feedback` : '';
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/eei6kk0o_HibiscuPlus_20260227_093727_0000%20%283%29%20%281%29.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -21,17 +21,84 @@ const fadeUp = {
 };
 const stagger = { visible: { transition: { staggerChildren: 0.12 } } };
 
+// 3 modes: general (default), product, event
+const MODES = {
+  general: {
+    eyebrow: 'Tell Us What You Think',
+    title: 'How was your',
+    titleAccent: 'HibiscusPlus experience?',
+    blurb:
+      "Your honest feedback shapes every blend, every snack and every event. Whether you've ordered online, eaten at a market stall, or just want to share an idea — we'd love to hear it.",
+    icon: MessageSquare,
+    sideTitle: 'Scan to Share Feedback',
+    sideBlurb: 'Point your phone camera at this QR code to leave feedback from anywhere.',
+  },
+  product: {
+    eyebrow: 'Product Feedback',
+    title: 'Tell us about',
+    titleAccent: 'your favourite picks.',
+    blurb:
+      "Loved it? Tweak something? Let us know exactly what worked and what we can improve. Your input goes straight to our kitchen and product team.",
+    icon: Package,
+    sideTitle: 'Scan to Share Feedback',
+    sideBlurb: "We'll use what you share to refine recipes, packaging and pricing.",
+  },
+  event: {
+    eyebrow: 'Tea Tasting Event',
+    title: 'Chester',
+    titleAccent: 'Experience',
+    blurb: '',
+    icon: Star,
+    sideTitle: 'Scan to Share Feedback',
+    sideBlurb: 'Point your phone camera at this QR code to leave feedback after the tasting.',
+  },
+};
+
 export default function Feedback() {
+  const [params] = useSearchParams();
+  const logo = useLogo();
+  const productParam = params.get('product') || '';
+  const contextParam = params.get('context') || (productParam ? 'product' : 'general');
+  const mode = MODES[contextParam] || MODES.general;
+  const Icon = mode.icon;
+
+  const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
-    name: '', email: '', blend: '', rating: 0, taste: '', wouldBuy: '', comments: ''
+    name: '',
+    email: '',
+    product: productParam,
+    rating: 0,
+    taste: '',
+    wouldBuy: '',
+    comments: '',
+    context: contextParam,
   });
   const [hoveredStar, setHoveredStar] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/api/products`)
+      .then((res) => setProducts(res.data.data || []))
+      .catch(() => { /* graceful: form still usable */ });
+  }, []);
+
+  // For the optional product selector — show purchasable + coming-soon items.
+  const productOptions = useMemo(() => {
+    const names = products
+      .filter((p) => ['tea', 'snack', 'event'].includes(p.type) || p.category === 'tea' || p.category === 'Tea Blends')
+      .map((p) => p.name);
+    // Always include the URL-provided product even if not in DB
+    if (productParam && !names.includes(productParam)) names.unshift(productParam);
+    return Array.from(new Set(names));
+  }, [products, productParam]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_URL}/api/feedback`, formData);
+      // Backend route accepts the blend field for backwards compatibility.
+      const payload = { ...formData, blend: formData.product };
+      await axios.post(`${API_URL}/api/feedback`, payload);
       setSubmitted(true);
       toast.success('Thank you for your feedback!');
     } catch {
@@ -74,24 +141,37 @@ export default function Feedback() {
         <div className="max-w-6xl mx-auto">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
             <motion.div variants={fadeUp} className="text-center mb-14">
-              <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--hp-burgundy)] mb-4">Tea Tasting Event</p>
+              <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--hp-burgundy)] mb-4">{mode.eyebrow}</p>
               <h1 className="text-4xl md:text-6xl font-light mb-6">
-                Chester <span className="italic text-[var(--hp-burgundy)]">Experience</span>
+                {mode.title} <span className="italic text-[var(--hp-burgundy)]">{mode.titleAccent}</span>
               </h1>
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-[var(--hp-ink-soft)]">
-                <span className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-[var(--hp-bronze)]" /> Saturday, 9th May 2025
-                </span>
-                <span className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[var(--hp-bronze)]" /> Chester, UK
-                </span>
-              </div>
+              {contextParam === 'event' && (
+                <div className="flex flex-wrap justify-center gap-6 text-sm text-[var(--hp-ink-soft)]">
+                  <span className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-[var(--hp-bronze)]" /> Saturday, 9th May 2025
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-[var(--hp-bronze)]" /> Chester, UK
+                  </span>
+                </div>
+              )}
+              {mode.blurb && (
+                <p className="mt-4 max-w-2xl mx-auto text-[var(--hp-ink-soft)] font-light leading-relaxed">
+                  {mode.blurb}
+                </p>
+              )}
+              {productParam && (
+                <p className="mt-6 inline-block text-[11px] uppercase tracking-[0.22em] text-[var(--hp-burgundy)] border border-[var(--hp-burgundy)]/30 px-4 py-2" data-testid="product-context-badge">
+                  Feedback for: {productParam}
+                </p>
+              )}
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
               <motion.div variants={fadeUp} className="lg:col-span-2">
                 <div className="hp-card p-8 md:p-10 text-center lg:sticky lg:top-28" data-testid="qr-section">
-                  <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--hp-burgundy)] mb-6">Scan to Share Feedback</p>
+                  <Icon className="h-7 w-7 text-[var(--hp-burgundy)] mx-auto mb-4" />
+                  <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--hp-burgundy)] mb-6">{mode.sideTitle}</p>
                   <div className="bg-[var(--hp-ivory)] p-5 inline-block mb-6 border border-[var(--hp-line-soft)]" data-testid="qr-code">
                     <QRCodeSVG
                       value={FEEDBACK_URL || 'https://hibiscusplus.co.uk/feedback'}
@@ -99,19 +179,19 @@ export default function Feedback() {
                       bgColor="#FFFBF5"
                       fgColor="#2A1418"
                       level="H"
-                      imageSettings={{ src: LOGO_URL, height: 40, width: 40, excavate: true }}
+                      imageSettings={{ src: logo, height: 40, width: 40, excavate: true }}
                     />
                   </div>
-                  <p className="text-sm text-[var(--hp-ink-soft)] font-light">
-                    Point your phone camera at this QR code to leave your feedback after tasting our blends.
-                  </p>
+                  <p className="text-sm text-[var(--hp-ink-soft)] font-light">{mode.sideBlurb}</p>
                   <div className="mt-8 pt-6 border-t border-[var(--hp-line-soft)]">
-                    <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--hp-muted)] mb-3">Blends Available for Tasting</p>
-                    <div className="space-y-1.5 text-sm text-[var(--hp-burgundy-deep)]">
-                      <p>Metabo Ignite</p>
-                      <p>Bloom &amp; Flush</p>
-                      <p>Glucose Guard</p>
-                    </div>
+                    <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--hp-muted)] mb-3">Prefer Email?</p>
+                    <a
+                      href="mailto:hello@hibiscusplus.co.uk"
+                      className="text-sm text-[var(--hp-burgundy-deep)] hover:text-[var(--hp-burgundy)] transition-colors"
+                      data-testid="feedback-email-link"
+                    >
+                      hello@hibiscusplus.co.uk
+                    </a>
                   </div>
                 </div>
               </motion.div>
@@ -119,7 +199,7 @@ export default function Feedback() {
               <motion.div variants={fadeUp} className="lg:col-span-3">
                 <div className="hp-card p-8 md:p-12" data-testid="feedback-form-section">
                   <h3 className="text-2xl font-medium text-[var(--hp-burgundy-deep)] mb-2">Share Your Experience</h3>
-                  <p className="text-sm text-[var(--hp-muted)] mb-8 font-light">Your honest feedback shapes our blends.</p>
+                  <p className="text-sm text-[var(--hp-muted)] mb-8 font-light">Your honest feedback shapes our blends, snacks and events.</p>
 
                   <form onSubmit={handleSubmit} className="space-y-6" data-testid="feedback-form">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -136,20 +216,20 @@ export default function Feedback() {
                     </div>
 
                     <div>
-                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-3 block">Which blend did you try?</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        {['Metabo Ignite', 'Bloom & Flush', 'Glucose Guard'].map(blend => (
-                          <button key={blend} type="button" onClick={() => setFormData({...formData, blend})}
-                            className={`p-3 border text-sm transition-all duration-300 ${
-                              formData.blend === blend
-                                ? 'border-[var(--hp-burgundy)] bg-[var(--hp-burgundy)]/10 text-[var(--hp-burgundy)]'
-                                : 'border-[var(--hp-line)] text-[var(--hp-ink-soft)] hover:border-[var(--hp-burgundy)]/50'
-                            }`}
-                            data-testid={`blend-${blend.replace(/\s+/g, '-').toLowerCase()}`}>
-                            {blend}
-                          </button>
+                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-3 block">
+                        {contextParam === 'general' ? 'About a specific product? (Optional)' : 'Which product?'}
+                      </label>
+                      <select
+                        value={formData.product}
+                        onChange={(e) => setFormData({ ...formData, product: e.target.value })}
+                        className={`${inputCls} w-full px-3 py-2 h-10`}
+                        data-testid="feedback-product-select"
+                      >
+                        <option value="">{contextParam === 'general' ? 'General feedback — not product-specific' : 'Select a product'}</option>
+                        {productOptions.map((name) => (
+                          <option key={name} value={name}>{name}</option>
                         ))}
-                      </div>
+                      </select>
                     </div>
 
                     <div>
@@ -172,13 +252,19 @@ export default function Feedback() {
                     </div>
 
                     <div>
-                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-2 block">How would you describe the taste?</label>
+                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-2 block">
+                        {contextParam === 'product' || formData.product ? 'How would you describe it?' : 'What stood out (good or bad)?'}
+                      </label>
                       <textarea value={formData.taste} onChange={(e) => setFormData({...formData, taste: e.target.value})}
-                        className={`${textareaCls} min-h-[80px]`} placeholder="Bold, refreshing, spicy, smooth..." data-testid="feedback-taste" />
+                        className={`${textareaCls} min-h-[80px]`}
+                        placeholder={contextParam === 'product' || formData.product ? 'Taste, packaging, presentation…' : 'Service, ordering, communication, value…'}
+                        data-testid="feedback-taste" />
                     </div>
 
                     <div>
-                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-3 block">Would you purchase this blend?</label>
+                      <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-3 block">
+                        {contextParam === 'product' || formData.product ? 'Would you buy this again?' : 'Would you recommend HibiscusPlus?'}
+                      </label>
                       <div className="flex flex-wrap gap-3">
                         {['Absolutely', 'Maybe', 'Not for me'].map(option => (
                           <button key={option} type="button" onClick={() => setFormData({...formData, wouldBuy: option})}
@@ -197,7 +283,7 @@ export default function Feedback() {
                     <div>
                       <label className="text-[11px] uppercase tracking-[0.18em] text-[var(--hp-muted)] mb-2 block">Additional Comments</label>
                       <textarea value={formData.comments} onChange={(e) => setFormData({...formData, comments: e.target.value})}
-                        className={`${textareaCls} min-h-[100px]`} placeholder="Anything else you'd like us to know..." data-testid="feedback-comments" />
+                        className={`${textareaCls} min-h-[100px]`} placeholder="Anything else you'd like us to know…" data-testid="feedback-comments" />
                     </div>
 
                     <Button type="submit"
