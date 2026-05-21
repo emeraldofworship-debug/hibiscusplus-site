@@ -347,6 +347,12 @@ export default function Home() {
                   <li className="flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Koko
                   </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Fresh Juices · Chilled Zobo
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Ginger Shots
+                  </li>
                 </ul>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
