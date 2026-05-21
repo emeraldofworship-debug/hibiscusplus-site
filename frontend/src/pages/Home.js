@@ -321,21 +321,58 @@ export default function Home() {
 
       {/* Event */}
       <section className="py-16 md:py-24 px-6 md:px-12 border-y border-[var(--hp-line-soft)] bg-[var(--hp-blush)]/40" data-testid="event-banner">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.3em] text-[var(--hp-burgundy)] mb-4">Upcoming Event</motion.p>
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-light mb-4">
-              Tea Tasting Experience — <span className="italic">Chester</span>
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-[var(--hp-ink-soft)] mb-8 font-light">
-              Saturday, 9th May 2025. Join us for an exclusive first taste of our three signature blends.
-            </motion.p>
-            <motion.div variants={fadeUp}>
-              <Link to="/feedback">
-                <Button className="bg-[var(--hp-burgundy)] text-[var(--hp-ivory)] hover:bg-[var(--hp-wine)] rounded-none text-sm uppercase tracking-[0.18em] px-10 py-6" data-testid="event-cta-btn">
-                  Share Your Feedback <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-2 gap-10 items-center">
+            <motion.div variants={fadeUp} className="order-2 md:order-1">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--hp-burgundy)] mb-4">Live This Saturday · Africa Day</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-5">
+                Find us at <span className="italic text-[var(--hp-burgundy)]">Africa Day</span>, Manchester.
+              </h2>
+              <p className="text-[var(--hp-ink-soft)] mb-6 font-light leading-relaxed">
+                Bridgeford Street, Manchester · This Saturday. Pull up to our stall for hand-fried
+                Nigerian street food — bold flavours, served warm, made the way grandma did it.
+              </p>
+              <div className="mb-8" data-testid="event-menu">
+                <p className="text-[11px] uppercase tracking-[0.28em] text-[var(--hp-ink)] mb-3">On the menu</p>
+                <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[var(--hp-ink)] font-light">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Puff-Puff
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Akara
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Samosas
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[var(--hp-burgundy)]" /> Koko
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="https://maps.google.com/?q=Bridgeford+Street+Manchester"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="bg-[var(--hp-burgundy)] text-[var(--hp-ivory)] hover:bg-[var(--hp-wine)] rounded-none text-sm uppercase tracking-[0.18em] px-8 py-6" data-testid="event-directions-btn">
+                    Get Directions <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+                <Link to="/shop">
+                  <Button variant="outline" className="border-[var(--hp-burgundy)]/40 text-[var(--hp-burgundy)] hover:bg-[var(--hp-burgundy)]/5 rounded-none text-sm uppercase tracking-[0.18em] px-8 py-6" data-testid="event-preorder-btn">
+                    Pre-Order Online
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="order-1 md:order-2">
+              <img
+                src="https://customer-assets.emergentagent.com/job_a32939dc-1aea-4860-99bb-b62686aca83e/artifacts/aklc0lb7_1000289598.png"
+                alt="Nigerian Street Food menu — Puff-Puff, Akara, Samosas, Koko"
+                className="w-full h-auto rounded-sm shadow-[0_18px_50px_rgba(99,30,45,0.18)]"
+                data-testid="event-menu-image"
+              />
             </motion.div>
           </motion.div>
         </div>
